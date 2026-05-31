@@ -1,5 +1,7 @@
 # IT English — Квиз для подготовки к КМ3
 
+**🔗 Открыть квиз: https://movi2752.github.io/english-quiz-km3/**
+
 Веб-тренажёр для подготовки к контрольной **КМ3** по курсу
 *Essential English for IT students. Part 2*. Покрывает все 45 вопросов из
 `Вопросы_ИТ_КМ 3.pdf` (Internet, Search Engines, Programming, Web Design, SEO,
