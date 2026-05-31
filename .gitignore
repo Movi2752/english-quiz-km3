@@ -8,3 +8,6 @@ desktop.ini
 # logs / temp
 *.log
 *.tmp
+
+# local source reference, not deployed
+km3.html

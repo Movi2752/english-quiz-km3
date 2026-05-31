@@ -61,7 +61,7 @@ function renderExamQuestion() {
   $("#exam-progress").textContent = `Вопрос ${examIdx + 1} / ${EXAM_SIZE}`;
   $("#exam-unit").textContent = item.unit;
   $("#exam-question").textContent = item.q;
-  $("#exam-answer").textContent = item.answer;
+  $("#exam-answer").innerHTML = item.answer;
   $("#exam-answer-box").classList.add("hidden");
   $("#exam-reveal").classList.remove("hidden");
   $("#exam-rate").classList.add("hidden");
@@ -136,7 +136,7 @@ function renderCard() {
   const box = $("#card-box");
   $("#card-unit").textContent = item.unit;
   $("#card-question").textContent = item.q;
-  $("#card-answer").textContent = item.answer;
+  $("#card-answer").innerHTML = item.answer;
   $("#card-answer-box").classList.add("hidden");
   $("#cards-counter").textContent = `${cardIdx + 1} / ${cardList.length}`;
   box.classList.toggle("learned", learned.has(item.id));
