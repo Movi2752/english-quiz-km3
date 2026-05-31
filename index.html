@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Квиз по IT-английскому — Подготовка к КМ3</title>
+  <meta name="description" content="Тренажёр для подготовки к контрольной КМ3 по предмету Essential English for IT students. Part 2." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>IT English — КМ3</h1>
+      <p class="subtitle">Тренажёр по курсу «Essential English for IT students. Part 2». 45 вопросов, режим экзамена на 8.</p>
+      <nav class="modes" aria-label="Режимы">
+        <button class="mode-btn is-active" data-mode="exam" type="button">🎓 Экзамен (8)</button>
+        <button class="mode-btn" data-mode="cards" type="button">🗂️ Карточки (45)</button>
+        <button class="mode-btn" data-mode="test" type="button">✅ Тест</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="app">
+    <!-- ===== EXAM MODE ===== -->
+    <section id="view-exam" class="view">
+      <!-- exam intro -->
+      <div id="exam-intro" class="panel center">
+        <h2>Режим «Экзамен»</h2>
+        <p>На КМ3 спросят 8 вопросов из 45. Здесь случайным образом подбираются 8 вопросов — как на реальной контрольной.</p>
+        <p>Прочитай вопрос, попробуй ответить вслух, затем открой образцовый ответ и оцени себя.</p>
+        <button id="exam-start" class="btn primary" type="button">Начать (8 случайных)</button>
+      </div>
+
+      <!-- exam running -->
+      <div id="exam-run" class="panel hidden">
+        <div class="exam-top">
+          <span class="pill" id="exam-progress">Вопрос 1 / 8</span>
+          <span class="pill ghost" id="exam-unit"></span>
+        </div>
+        <div class="flashcard" id="exam-card">
+          <p class="q-text" id="exam-question"></p>
+          <div class="answer hidden" id="exam-answer-box">
+            <h3>Образцовый ответ</h3>
+            <p id="exam-answer"></p>
+          </div>
+        </div>
+        <div class="exam-controls">
+          <button id="exam-reveal" class="btn" type="button">Показать ответ</button>
+          <div id="exam-rate" class="rate hidden">
+            <span>Как ты ответил?</span>
+            <button class="btn good" data-rate="know" type="button">✔ Знаю</button>
+            <button class="btn bad" data-rate="repeat" type="button">↺ Повторить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- exam result -->
+      <div id="exam-result" class="panel center hidden">
+        <h2>Результат экзамена</h2>
+        <p class="score" id="exam-score"></p>
+        <p id="exam-verdict" class="verdict"></p>
+        <div id="exam-repeat-list"></div>
+        <button id="exam-again" class="btn primary" type="button">Ещё раз (новые 8)</button>
+      </div>
+    </section>
+
+    <!-- ===== FLASHCARDS MODE ===== -->
+    <section id="view-cards" class="view hidden">
+      <div class="cards-toolbar">
+        <label for="unit-filter">Тема:</label>
+        <select id="unit-filter"></select>
+        <span class="pill ghost" id="cards-counter"></span>
+        <button id="cards-reset" class="btn small" type="button" title="Сбросить отметки «выучено»">Сбросить прогресс</button>
+      </div>
+      <div class="flashcard" id="card-box">
+        <span class="pill ghost" id="card-unit"></span>
+        <p class="q-text" id="card-question"></p>
+        <div class="answer hidden" id="card-answer-box">
+          <h3>Образцовый ответ</h3>
+          <p id="card-answer"></p>
+        </div>
+      </div>
+      <div class="cards-controls">
+        <button id="card-prev" class="btn" type="button">← Назад</button>
+        <button id="card-flip" class="btn primary" type="button">Перевернуть</button>
+        <button id="card-known" class="btn good" type="button">Отметить «выучено»</button>
+        <button id="card-next" class="btn" type="button">Вперёд →</button>
+      </div>
+    </section>
+
+    <!-- ===== MCQ TEST MODE ===== -->
+    <section id="view-test" class="view hidden">
+      <div id="test-intro" class="panel center">
+        <h2>Режим «Тест»</h2>
+        <p>Вопросы с вариантами ответов по ключевым фактам всех тем. Мгновенная проверка и итоговый счёт.</p>
+        <button id="test-start" class="btn primary" type="button">Начать тест</button>
+      </div>
+
+      <div id="test-run" class="panel hidden">
+        <div class="exam-top">
+          <span class="pill" id="test-progress"></span>
+          <span class="pill ghost" id="test-unit"></span>
+        </div>
+        <p class="q-text" id="test-question"></p>
+        <div class="options" id="test-options"></div>
+        <div class="explain hidden" id="test-explain"></div>
+        <div class="test-controls">
+          <button id="test-next" class="btn primary hidden" type="button">Дальше →</button>
+        </div>
+      </div>
+
+      <div id="test-result" class="panel center hidden">
+        <h2>Результат теста</h2>
+        <p class="score" id="test-score"></p>
+        <p id="test-verdict" class="verdict"></p>
+        <button id="test-again" class="btn primary" type="button">Пройти заново</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Источник: «Вопросы_ИТ_КМ 3.pdf» · Essential English for IT students. Part 2.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
