@@ -15,6 +15,7 @@
       <nav class="modes" aria-label="Режимы">
         <button class="mode-btn is-active" data-mode="exam" type="button">🎓 Экзамен (8)</button>
         <button class="mode-btn" data-mode="cards" type="button">🗂️ Карточки (45)</button>
+        <button class="mode-btn" data-mode="cloze" type="button">🔑 Заполни</button>
         <button class="mode-btn" data-mode="match" type="button">🧩 Пары</button>
         <button class="mode-btn" data-mode="defs" type="button">📖 Определения</button>
         <button class="mode-btn" data-mode="test" type="button">✅ Тест</button>
@@ -87,6 +88,45 @@
         <button id="card-flip" class="btn primary" type="button">Перевернуть</button>
         <button id="card-known" class="btn good" type="button">Отметить «выучено»</button>
         <button id="card-next" class="btn" type="button">Вперёд →</button>
+      </div>
+    </section>
+
+    <!-- ===== CLOZE MODE (fill the gaps) ===== -->
+    <section id="view-cloze" class="view hidden">
+      <!-- cloze intro -->
+      <div id="cloze-intro" class="panel center">
+        <h2>Режим «Заполни»</h2>
+        <p>Самый сильный способ запомнить ответы для КМ3. Берём реальный образцовый ответ — ключевые термины спрятаны. Впиши их по памяти.</p>
+        <p>Это активное припоминание прямо на экзаменационных формулировках, а не угадайка из вариантов.</p>
+        <div class="match-setup">
+          <label for="cloze-unit">Тема:</label>
+          <select id="cloze-unit"></select>
+        </div>
+        <button id="cloze-start" class="btn primary" type="button">Начать (8 ответов)</button>
+      </div>
+
+      <!-- cloze running -->
+      <div id="cloze-run" class="panel hidden">
+        <div class="exam-top">
+          <span class="pill" id="cloze-progress"></span>
+          <span class="pill ghost" id="cloze-unit-label"></span>
+        </div>
+        <p class="q-text" id="cloze-question"></p>
+        <div class="flashcard" id="cloze-answer"></div>
+        <div id="cloze-feedback" class="explain hidden"></div>
+        <div class="test-controls">
+          <button id="cloze-check" class="btn primary" type="button">Проверить</button>
+          <button id="cloze-reveal" class="btn" type="button">Показать ответ</button>
+          <button id="cloze-next" class="btn primary hidden" type="button">Дальше →</button>
+        </div>
+      </div>
+
+      <!-- cloze result -->
+      <div id="cloze-result" class="panel center hidden">
+        <h2>Результат</h2>
+        <p class="score" id="cloze-score"></p>
+        <p id="cloze-verdict" class="verdict"></p>
+        <button id="cloze-again" class="btn primary" type="button">Пройти заново</button>
       </div>
     </section>
 

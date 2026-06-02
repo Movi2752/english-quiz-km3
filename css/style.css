@@ -346,6 +346,40 @@ select {
   75% { transform: translateX(4px); }
 }
 
+/* ---------- Cloze blanks ---------- */
+.cloze-blank {
+  display: inline-block;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--bg-2);
+  border: none;
+  border-bottom: 2px solid var(--accent);
+  border-radius: 6px 6px 0 0;
+  padding: 0.05em 0.4em;
+  margin: 0 0.1em;
+  min-width: 3ch;
+  outline: none;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.cloze-blank:focus { background: var(--surface-2); border-bottom-color: var(--accent-2); }
+.cloze-blank.correct {
+  color: #d8fff0;
+  background: rgba(52, 211, 153, 0.16);
+  border-bottom-color: var(--good);
+}
+.cloze-blank.wrong {
+  color: #ffe4e4;
+  background: rgba(248, 113, 113, 0.16);
+  border-bottom-color: var(--bad);
+}
+.cloze-blank.revealed {
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border-bottom-color: var(--text-dim);
+}
+#cloze-answer { line-height: 2.1; }
+
 /* ---------- Card learned state ---------- */
 .flashcard.learned { border-color: rgba(52, 211, 153, 0.55); }
 .flashcard.learned::after {

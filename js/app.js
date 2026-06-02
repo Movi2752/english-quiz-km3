@@ -31,6 +31,7 @@ let learned = loadLearned();
 const VIEWS = {
   exam: "#view-exam",
   cards: "#view-cards",
+  cloze: "#view-cloze",
   match: "#view-match",
   defs: "#view-defs",
   test: "#view-test",
@@ -40,6 +41,7 @@ function switchMode(mode) {
   $$(".mode-btn").forEach((b) => b.classList.toggle("is-active", b.dataset.mode === mode));
   Object.entries(VIEWS).forEach(([m, sel]) => $(sel).classList.toggle("hidden", m !== mode));
   if (mode === "cards") renderCard();
+  if (mode === "cloze") showClozeIntro();
   if (mode === "match") showMatchIntro();
   if (mode === "defs") showDefsIntro();
 }
@@ -525,7 +527,154 @@ $("#defs-start").addEventListener("click", startDefs);
 $("#defs-again").addEventListener("click", startDefs);
 $("#defs-next").addEventListener("click", nextDefs);
 
+// =====================================================
+//  CLOZE MODE — fill the hidden key terms in real answers
+// =====================================================
+const CLOZE_SIZE = 8;
+let clozeSet = [];
+let clozeIdx = 0;
+let clozeChecked = false;
+let clozeRightTotal = 0;
+let clozeBlankTotal = 0;
+
+// questions whose answers contain at least one <b>key term</b>
+const CLOZE_POOL = QUESTIONS.filter((q) => /<b>[^<]+<\/b>/i.test(q.answer));
+
+function buildClozeUnitFilter() {
+  const units = Array.from(new Set(CLOZE_POOL.map((q) => q.unit)));
+  const sel = $("#cloze-unit");
+  sel.innerHTML =
+    `<option value="all">Все темы</option>` +
+    units.map((u) => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join("");
+}
+
+function showClozeIntro() {
+  $("#cloze-intro").classList.remove("hidden");
+  $("#cloze-run").classList.add("hidden");
+  $("#cloze-result").classList.add("hidden");
+}
+
+function normalizeCloze(s) {
+  return s.toLowerCase().replace(/\s+/g, " ").replace(/[.,;:!?"'`()]/g, "").trim();
+}
+
+function startCloze() {
+  const filter = $("#cloze-unit").value;
+  const pool = filter === "all" ? CLOZE_POOL.slice() : CLOZE_POOL.filter((q) => q.unit === filter);
+  clozeSet = shuffle(pool).slice(0, Math.min(CLOZE_SIZE, pool.length));
+  clozeIdx = 0;
+  clozeRightTotal = 0;
+  clozeBlankTotal = 0;
+  $("#cloze-intro").classList.add("hidden");
+  $("#cloze-result").classList.add("hidden");
+  $("#cloze-run").classList.remove("hidden");
+  renderClozeQuestion();
+}
+
+function renderClozeQuestion() {
+  clozeChecked = false;
+  const item = clozeSet[clozeIdx];
+  $("#cloze-progress").textContent = `Ответ ${clozeIdx + 1} / ${clozeSet.length}`;
+  $("#cloze-unit-label").textContent = item.unit;
+  $("#cloze-question").textContent = item.q;
+
+  const box = $("#cloze-answer");
+  box.innerHTML = item.answer;
+  box.querySelectorAll("b").forEach((b) => {
+    const answer = b.textContent;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "cloze-blank";
+    input.dataset.answer = answer;
+    input.size = Math.max(answer.length, 4);
+    input.autocomplete = "off";
+    input.spellcheck = false;
+    input.setAttribute("aria-label", "пропуск");
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !clozeChecked) checkCloze();
+    });
+    b.replaceWith(input);
+  });
+
+  $("#cloze-feedback").classList.add("hidden");
+  $("#cloze-check").classList.remove("hidden");
+  $("#cloze-reveal").classList.remove("hidden");
+  $("#cloze-next").classList.add("hidden");
+
+  const first = box.querySelector(".cloze-blank");
+  if (first) first.focus();
+}
+
+function checkCloze() {
+  if (clozeChecked) return;
+  clozeChecked = true;
+  const inputs = $$("#cloze-answer .cloze-blank");
+  let right = 0;
+  inputs.forEach((inp) => {
+    inp.disabled = true;
+    const ok = normalizeCloze(inp.value) === normalizeCloze(inp.dataset.answer);
+    inp.classList.add(ok ? "correct" : "wrong");
+    if (!ok) inp.value = inp.dataset.answer;
+    if (ok) right++;
+  });
+  clozeRightTotal += right;
+  clozeBlankTotal += inputs.length;
+
+  const fb = $("#cloze-feedback");
+  const pct = Math.round((right / inputs.length) * 100);
+  fb.innerHTML = `Угадано <b>${right}</b> из <b>${inputs.length}</b> (${pct}%). Красным показан верный термин.`;
+  fb.classList.remove("hidden");
+
+  $("#cloze-check").classList.add("hidden");
+  $("#cloze-reveal").classList.add("hidden");
+  $("#cloze-next").classList.remove("hidden");
+  $("#cloze-next").textContent = clozeIdx + 1 >= clozeSet.length ? "Показать результат" : "Дальше →";
+}
+
+function revealCloze() {
+  if (clozeChecked) return;
+  clozeChecked = true;
+  const inputs = $$("#cloze-answer .cloze-blank");
+  inputs.forEach((inp) => {
+    inp.disabled = true;
+    inp.value = inp.dataset.answer;
+    inp.classList.add("revealed");
+  });
+  $("#cloze-feedback").classList.remove("hidden");
+  $("#cloze-feedback").innerHTML = "Ответ показан. Эти пропуски не засчитаны.";
+  $("#cloze-check").classList.add("hidden");
+  $("#cloze-reveal").classList.add("hidden");
+  $("#cloze-next").classList.remove("hidden");
+  $("#cloze-next").textContent = clozeIdx + 1 >= clozeSet.length ? "Показать результат" : "Дальше →";
+}
+
+function nextCloze() {
+  clozeIdx++;
+  if (clozeIdx >= clozeSet.length) finishCloze();
+  else renderClozeQuestion();
+}
+
+function finishCloze() {
+  $("#cloze-run").classList.add("hidden");
+  $("#cloze-result").classList.remove("hidden");
+  const pct = clozeBlankTotal ? Math.round((clozeRightTotal / clozeBlankTotal) * 100) : 0;
+  $("#cloze-score").textContent = `${clozeRightTotal} / ${clozeBlankTotal} (${pct}%)`;
+  let verdict;
+  if (pct >= 90) verdict = "Формулировки в голове! Готов к КМ3. 🎉";
+  else if (pct >= 70) verdict = "Сильно. Подтяни пару терминов.";
+  else if (pct >= 50) verdict = "Неплохо — прогони карточки и повтори.";
+  else verdict = "Сначала поучи ответы в «Карточках», потом сюда.";
+  $("#cloze-verdict").textContent = verdict;
+}
+
+$("#cloze-start").addEventListener("click", startCloze);
+$("#cloze-again").addEventListener("click", startCloze);
+$("#cloze-check").addEventListener("click", checkCloze);
+$("#cloze-reveal").addEventListener("click", revealCloze);
+$("#cloze-next").addEventListener("click", nextCloze);
+
 // ---------- init ----------
 buildUnitFilter();
 buildMatchUnitFilter();
+buildClozeUnitFilter();
 renderCard();
