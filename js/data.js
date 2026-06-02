@@ -1,5 +1,5 @@
 // Source: "Вопросы_ИТ_КМ 3.pdf" — Essential English for IT students. Part 2.
-// 45 exam questions with verified model answers (English, HTML formatting).
+// 45 exam questions with verified model answers (English, HTML, condensed).
 // Answers verified against course materials + video tasks. UI is Russian.
 
 const QUESTIONS = [
@@ -7,556 +7,440 @@ const QUESTIONS = [
     id: 1,
     unit: "Unit 1 — The Internet",
     q: "What types of wired internet connections do you know? Talk about each of them in detail.",
-    answer: `<p>There are three main types of wired internet connections: <b>DSL</b>, <b>Cable Internet</b>, and <b>Fiber-optic Internet</b>.</p>
-<p><b>DSL (Digital Subscriber Line)</b> uses the standard copper telephone lines but transmits digital signals over higher frequency bands, so voice and data can run simultaneously. The DSL signal is pulled out from the phone line as it enters the premises and is wired separately to a DSL modem. The most common variant is <b>ADSL</b> — asymmetric, because the download speed is faster than the upload speed. DSL is a low-cost option.</p>
-<p><b>Cable Internet</b> uses the cable TV infrastructure. The ISP sends a data signal through the coaxial cable to a cable modem, which connects to devices via Ethernet or Wi-Fi. It's reliable and not subject to outages from storms, but bandwidth is <em>shared with the neighborhood</em>, so speed can drop during peak hours.</p>
-<p><b>Fiber-optic Internet</b> uses fiber-optic cables that carry data as pulses of light — presence of light = binary 1, absence = 0. It's the fastest option, with low attenuation and low distortion of the signal over long distances. Faster load times and higher-quality streaming.</p>`
+    answer: `<p>Three wired types: <b>DSL</b>, <b>Cable</b>, <b>Fiber-optic</b>.</p>
+<ul>
+<li><b>DSL</b> — copper phone line, data on higher frequencies (voice + data together). Common: <b>ADSL</b> (download faster than upload). Low-cost.</li>
+<li><b>Cable</b> — coaxial TV cable to a cable modem. Reliable, but bandwidth <em>shared with neighborhood</em> → slows at peak hours.</li>
+<li><b>Fiber-optic</b> — data as pulses of light. Fastest, low signal loss over long distances.</li>
+</ul>`
   },
   {
     id: 2,
     unit: "Unit 1 — The Internet",
     q: "What is the difference between DSL and dial-up connection?",
-    answer: `<p>The main difference is in <b>how frequencies are used</b> on the copper telephone line.</p>
-<p><b>Dial-up</b> uses the same frequency to carry both voice and data signals over the copper wire. Because of this, only one service could be provided at a time — it was <em>impossible to make a phone call and browse the Internet simultaneously</em>. The name comes from the fact that the connection was set up by dialing a phone number.</p>
-<p><b>DSL</b> uses higher frequency bands for data transmission, which are separated from the voice frequency. So DSL service can be delivered <em>simultaneously</em> with wired telephone service over the same telephone line. Also, DSL is much faster than dial-up, which was the slowest way to access the Internet.</p>`
+    answer: `<p>Both use the copper phone line, differ in <b>frequencies</b>.</p>
+<ul>
+<li><b>Dial-up</b> — same frequency for voice + data → one at a time (no calls while online). Slowest, ~dial a number.</li>
+<li><b>DSL</b> — higher separate frequencies → voice + data <em>simultaneously</em>. Much faster, always-on.</li>
+</ul>`
   },
   {
     id: 3,
     unit: "Unit 1 — The Internet",
     q: "Talk about the three wireless internet access technologies.",
-    answer: `<p>The three widely used wireless technologies are <b>Wi-Fi</b>, <b>satellite</b>, and <b>cellular</b>.</p>
-<p><b>Wi-Fi</b> uses radio waves to wirelessly connect devices and is commonly applied for local area networking. To access the Internet, a device (tablet, smartphone) has to be connected over Wi-Fi to a wireless router.</p>
-<p><b>Satellite Internet</b> usually allows a user to access the Net via a geostationary satellite that orbits the Earth. Because signals must travel long distances from Earth up to the satellite and back, there's a delay — but modern tech minimizes this latency. You need a satellite dish for two-way communication and a modem. It's a good solution where conventional cable or DSL isn't available.</p>
-<p><b>Cellular network</b> is a communication network distributed over land areas called "cells". Each cell has at least one fixed-location transceiver (cell tower), but more commonly three sites. These base stations provide network coverage for voice and data. Each cell uses a different set of frequencies from its neighbors to avoid interference.</p>`
+    answer: `<p>Three wireless: <b>Wi-Fi</b>, <b>satellite</b>, <b>cellular</b>.</p>
+<ul>
+<li><b>Wi-Fi</b> — radio waves, local networking; device connects to a wireless router.</li>
+<li><b>Satellite</b> — access via geostationary satellite + dish; some delay; good where no cable/DSL.</li>
+<li><b>Cellular</b> — land split into "cells", each a cell tower with its own frequencies (avoid interference); voice + data.</li>
+</ul>`
   },
   {
     id: 4,
     unit: "Unit 1 — The Internet",
     q: "What are the three types of DSL connections? Talk about each of them.",
-    answer: `<p>The three types of DSL mentioned in the video are <b>ADSL</b>, <b>SDSL</b>, and <b>VDSL</b>.</p>
-<p><b>ADSL (Asymmetric DSL)</b> — the most common consumer type. Download speed is significantly faster than upload speed, which suits regular home use where people mostly consume content (streaming, browsing) more than they upload.</p>
-<p><b>SDSL (Symmetric DSL)</b> — upload and download speeds are equal. Used more often in business settings where uploads matter as much as downloads (e.g. hosting servers, video conferencing).</p>
-<p><b>VDSL (Very-high-bit-rate DSL)</b> — much faster than ADSL, but works only over <em>shorter distances</em> from the provider's equipment. Used where higher speeds are needed and the customer is close enough to the central office.</p>
-<p>All three share the DSL property: they don't share bandwidth with the neighborhood — each subscriber has a dedicated line.</p>`
+    answer: `<p>Three DSL types (from the video):</p>
+<ul>
+<li><b>ADSL</b> (Asymmetric) — download &gt; upload. Home use.</li>
+<li><b>SDSL</b> (Symmetric) — equal up/down. Business, servers.</li>
+<li><b>VDSL</b> (Very-high-bit-rate) — fastest, but only over <em>short distances</em>.</li>
+</ul>
+<p>All have a dedicated line (no bandwidth sharing).</p>`
   },
   {
     id: 5,
     unit: "Unit 1 — The Internet",
     q: "What is the difference between packet switching and circuit switching?",
-    answer: `<p><b>Circuit switching</b> is connection-oriented. A dedicated channel is established between two nodes <em>before</em> communication starts — three steps: connection making, data transfer, connection removing. Data is not divided into units; the complete data goes through the same route. Used in public switched telephone networks. Downside: while the circuit is reserved, no other device can use that path, even if it's idle — <em>wasted bandwidth</em>.</p>
-<p><b>Packet switching</b> divides data into small units called <b>packets</b>. Each packet has a header (with routing info) and a payload (the data). Packets can travel different routes and are reassembled at the destination. If the network is congested, some packets can be rerouted through a less congested path. Much more efficient use of bandwidth. <em>The Internet is a packet-switched network.</em></p>`
+    answer: `<ul>
+<li><b>Circuit switching</b> — dedicated channel reserved <em>before</em> transfer (phone calls). Data goes whole, same route. Wastes bandwidth when idle.</li>
+<li><b>Packet switching</b> — data split into <b>packets</b> (header + payload), routed separately, reassembled at destination. Efficient. <em>The Internet uses it.</em></li>
+</ul>`
   },
   {
     id: 6,
     unit: "Unit 1 — The Internet",
     q: "What are the two subtypes of packet switching? Talk about each of them.",
-    answer: `<p>The two approaches are <b>datagram packet switching</b> and <b>virtual circuit switching</b>.</p>
-<p><b>Datagram packet switching</b> — there is <em>no dedicated channel</em>. Packets are routed individually through different paths and reassembled at the destination based on the sequence number of each packet. The major advantage is the most efficient use of Internet bandwidth.</p>
-<p><b>Virtual circuit switching</b> is a connection-oriented technique that combines features of circuit switching and datagram packet switching. A virtual connection is first established between source and destination, and then packets are routed along this path <em>sequentially</em>. So you get some of the predictability of circuit switching with the efficiency of packets.</p>`
+    answer: `<ul>
+<li><b>Datagram</b> — no dedicated channel; packets routed individually, reassembled by sequence number. Most efficient bandwidth use.</li>
+<li><b>Virtual circuit</b> — connection set up first, then packets follow that path <em>in order</em>. Mixes circuit + packet features.</li>
+</ul>`
   },
   {
     id: 7,
     unit: "Unit 1 — The Internet",
     q: "Talk about the TCP/IP model — the layers and protocols.",
-    answer: `<p>TCP/IP is a stack of protocols used to interconnect network devices on the Internet. It specifies how data is exchanged — how it's broken into packets, addressed, routed, and received. It has <b>four layers</b>:</p>
-<p><b>1. Application layer</b> — topmost layer. Includes protocols used by applications to provide user services. Most common: <b>HTTP</b> (web browsers and websites), <b>FTP</b> (file transfer between computers), <b>SMTP</b> (emails).</p>
-<p><b>2. Transport layer</b> — performs host-to-host communication. Main protocols: <b>TCP</b> (guarantees delivery through acknowledgements, retransmits missing packets) and <b>UDP</b> (does not verify the connection, used for real-time communication like phone calls).</p>
-<p><b>3. Internet layer</b> — responsible for the logical transmission of data over the entire network. Primary protocol is <b>IP</b>, which defines how to address and route each packet. Both origin and destination IP addresses are attached to the packet; each gateway checks the IP address to decide where to forward.</p>
-<p><b>4. Network Interface layer</b> — bottom layer. Includes protocols required to deliver data over a physical medium. The best-known is <b>Ethernet</b>, used in LAN environments (offices, homes, universities).</p>`
+    answer: `<p>TCP/IP = protocol stack, <b>4 layers</b>:</p>
+<ul>
+<li><b>Application</b> — HTTP, FTP, SMTP (user services).</li>
+<li><b>Transport</b> — TCP (reliable) & UDP (real-time). Host-to-host.</li>
+<li><b>Internet</b> — IP: addressing + routing of packets.</li>
+<li><b>Network Interface</b> — physical delivery; e.g. Ethernet (LAN).</li>
+</ul>`
   },
   {
     id: 8,
     unit: "Unit 1 — The Internet",
     q: "What is the difference between TCP and UDP?",
-    answer: `<p>Both are transport-layer protocols, but they behave very differently.</p>
-<p><b>TCP (Transmission Control Protocol)</b> <em>guarantees the delivery</em> of data through an acknowledgement system and ensures the transmission of missing packets — if a packet doesn't arrive, it's resent. Connection-oriented and reliable. Used where data integrity matters more than speed (web pages, file transfers, email).</p>
-<p><b>UDP (User Datagram Protocol)</b> does <em>not verify</em> the connection between sender and receiver. No acknowledgements, no retransmission. Faster and has lower overhead, but unreliable. Used for <b>real-time communication</b> — phone calls, video streaming, online gaming — where some packet loss is acceptable but delay isn't.</p>`
+    answer: `<p>Both transport-layer.</p>
+<ul>
+<li><b>TCP</b> — <em>guarantees delivery</em> via acknowledgements, resends lost packets. Reliable. For web, files, email.</li>
+<li><b>UDP</b> — no connection check, no resend. Faster, low overhead, unreliable. For calls, streaming, gaming.</li>
+</ul>`
   },
   {
     id: 9,
     unit: "Unit 1 — The Internet",
     q: "What is the difference between the Internet and the WWW?",
-    answer: `<p>They're often confused but they're not the same thing.</p>
-<p>The <b>Internet</b> is the underlying global network of interconnected devices that transmits data. It <em>pre-existed</em> the Web. It's the infrastructure — cables, routers, satellites, protocols like TCP/IP.</p>
-<p>The <b>World Wide Web (WWW)</b> is an information system <em>built on top of</em> the Internet, where documents and other web resources are identified by a URL and accessed through a software application called a web browser. It's a hypertext-based system — hypertext is text that contains hyperlinks to other documents. Browsers understand <b>HTML</b> to display pages.</p>
-<p>The Web was invented by <b>Tim Berners-Lee</b> in 1989 at CERN near Geneva. He wrote the first web browser in 1990. The Web entered everyday use in 1993–1994.</p>`
+    answer: `<ul>
+<li><b>Internet</b> — the global physical network (cables, routers, TCP/IP). <em>Pre-existed</em> the Web.</li>
+<li><b>WWW</b> — info system <em>on top of</em> the Internet: resources by URL, accessed via browser, hypertext + HTML.</li>
+</ul>
+<p>Invented by <b>Tim Berners-Lee</b>, 1989, CERN.</p>`
   },
   {
     id: 10,
     unit: "Unit 2 — Search Engines",
     q: "Talk about the three types of search engines and their distinctive features.",
-    answer: `<p>Search engines fall into three categories: <b>crawler-based</b>, <b>human-powered directories</b>, and <b>meta-search engines</b>.</p>
-<p><b>Crawler-based</b> (Google, Bing, Yahoo!) — create their listings <em>automatically</em> using a special program called a crawler or spider that finds new and updated content by following links. The three steps are crawling, indexing, ranking.</p>
-<p><b>Human-powered directories</b> (Yahoo! Directory, Open Directory, LookSmart) — depend on human editors. A short description and URL are submitted, then manually reviewed and added to the appropriate category or rejected. Search matches the user's keywords with the human-written description — changes to the actual page content are not taken into consideration. <em>Nearly wiped out by automated engines.</em></p>
-<p><b>Meta-search engines</b> (Dogpile, MetaCrawler, SavvySearch) — don't have their own index. They send the user's query to several other search engines and compile top results from each into one overall list, removing redundancy.</p>`
+    answer: `<ul>
+<li><b>Crawler-based</b> (Google, Bing) — build index <em>automatically</em> via spider following links. Crawl→index→rank.</li>
+<li><b>Human-powered directories</b> (Yahoo! Directory) — human editors review URL + description; match against description, not page content.</li>
+<li><b>Meta-search</b> (Dogpile) — no own index; sends query to other engines, merges results.</li>
+</ul>`
   },
   {
     id: 11,
     unit: "Unit 2 — Search Engines",
     q: "What are the three steps every crawler-based search engine takes before displaying search results?",
-    answer: `<p>The three steps are <b>crawling</b>, <b>indexing</b>, and <b>ranking</b>.</p>
-<p><b>Crawling</b> — a special program called a crawler or spider (e.g. Googlebot) starts by fetching a few webpages, then follows the links on those pages to find new URLs. Content can be a webpage, image, or video — it's all discovered by links. Data mining techniques define which pages should be crawled and how often.</p>
-<p><b>Indexing</b> — search engines process and store information they find in a massive database called an index, to be retrieved later when a user enters a query. Indexing identifies the words and expressions that best describe the page — these are <em>keywords</em>, and the page is assigned to them.</p>
-<p><b>Ranking</b> — the engine compares the search string with the indexed pages and provides content that best answers the user's query. Results are ordered from most relevant to least relevant. Different engines have different ranking algorithms, which is why the same query gives different results in different engines. Algorithms constantly evolve.</p>`
+    answer: `<ul>
+<li><b>Crawling</b> — spider (Googlebot) fetches pages, follows links to find new URLs.</li>
+<li><b>Indexing</b> — info stored in a huge database (index); identifies <em>keywords</em> describing each page.</li>
+<li><b>Ranking</b> — matches query to indexed pages, orders most→least relevant. Each engine has its own algorithm.</li>
+</ul>`
   },
   {
     id: 12,
     unit: "Unit 2 — Search Engines",
     q: "What makes meta-search engines different from other types of search engines?",
-    answer: `<p>The key difference is that a meta-search engine <em>does not have its own database</em> of indexed pages. Unlike crawler-based engines, it doesn't crawl or index the web itself.</p>
-<p>Instead, it works as a middleman: it sends the user's query to <em>several other search engines</em> simultaneously and compiles the top results from each into one overall list. After redundancy is removed (duplicate links eliminated), the results are processed, ranked according to its own algorithm, and presented to the user.</p>
-<p>Examples: <b>Dogpile, MetaCrawler, SavvySearch</b>. The benefit is that you get a broader, aggregated view of results from multiple sources in one query.</p>`
+    answer: `<p>No <em>own index/database</em>. Acts as middleman: sends query to <b>several engines</b> at once, merges top results, removes duplicates, re-ranks.</p>
+<p>Examples: <b>Dogpile, MetaCrawler, SavvySearch</b>. Benefit: broad aggregated view in one query.</p>`
   },
   {
     id: 13,
     unit: "Unit 2 — Search Engines",
     q: "What is the difference between crawler-based search engines and human-powered directories?",
-    answer: `<p>The main difference is <b>how listings are created and updated</b>.</p>
-<p><b>Crawler-based engines</b> build their listings <em>automatically</em>. A spider discovers, indexes, and ranks content algorithmically. Changes to webpages are picked up on subsequent crawls. They're scalable to the size of the web.</p>
-<p><b>Human-powered directories</b> depend on human editors. A site owner submits a URL and description; an editor manually reviews and approves or rejects it. The keyword match happens against the <em>human-written description</em>, not the actual page content. So if you change your page, the directory won't notice — only the description matters.</p>
-<p>This is why automated engines like Google have nearly wiped human-powered directories out — they can't compete on scale or freshness.</p>`
+    answer: `<ul>
+<li><b>Crawler-based</b> — listings built <em>automatically</em> by spider; scales to whole web, picks up page changes.</li>
+<li><b>Human-powered</b> — editors manually approve URL + description; match against <em>description</em>, not page content; small, slow.</li>
+</ul>
+<p>Automated engines nearly wiped directories out.</p>`
   },
   {
     id: 14,
     unit: "Unit 2 — Search Engines",
     q: "What factors determine higher ranking in search results? What aspects can the ranking algorithm take into consideration?",
-    answer: `<p>Each search engine has its own algorithm, and they're constantly updated to give better and faster results than competitors. Several factors can be considered:</p>
+    answer: `<p>Each engine = own algorithm. Factors:</p>
 <ul>
-<li>Whether the search term shows up in the <b>page title</b>.</li>
-<li>Whether all the words appear <b>close together</b> on the page.</li>
-<li>How many <b>other webpages link</b> to a given page — this is the algorithm Google invented (PageRank): the more pages link to you, the more authoritative you're considered.</li>
-<li>The <em>relevance</em> of the content to the keywords.</li>
-<li>How recently the page was updated.</li>
-</ul>
-<p>That's why the same query gives different results on different engines — they weigh these factors differently.</p>`
+<li>Search term in the <b>page title</b>.</li>
+<li>Words appearing <b>close together</b>.</li>
+<li>Number of <b>backlinks</b> (Google's PageRank → authority).</li>
+<li>Content <em>relevance</em> to keywords.</li>
+<li>How recently updated.</li>
+</ul>`
   },
   {
     id: 15,
     unit: "Unit 2 — Search Engines",
     q: "What is the difference between a search engine and a web browser?",
-    answer: `<p>They're very different tools, though both deal with the web.</p>
-<p>A <b>web browser</b> runs <em>locally</em> on your hardware. When you enter a web address, the browser decodes that address, puts it into a series of binary signals so the computer can route traffic to servers, reads the computer code (HTML, CSS, JS) of a website, and renders it on the screen. With a browser, you point at <em>one specific website</em>.</p>
-<p>A <b>search engine</b> operates on <em>remote servers</em>. After a user enters a request, it looks across all the websites it has indexed and returns a <em>list</em> of potential places one can go. It doesn't display sites — it finds them.</p>
-<p>So: browser = renders one site you already know; search engine = helps you find many sites.</p>`
+    answer: `<ul>
+<li><b>Browser</b> — runs <em>locally</em>; decodes a web address, reads the site's code (HTML/CSS/JS), renders <em>one site</em>.</li>
+<li><b>Search engine</b> — runs on <em>remote servers</em>; returns a <em>list</em> of indexed sites matching a query. Finds, doesn't display.</li>
+</ul>`
   },
   {
     id: 16,
     unit: "Unit 2 — Search Engines",
     q: "Talk about any four search engines that can be used as an alternative to Google.",
-    answer: `<p><b>Bing</b> — Microsoft's engine. Easy to use, beautiful background photos. Full of internal features like currency conversion, translation, flight tracking. Has a Rewards scheme: shopping or searching earns points toward apps and movies. Popular in the US and UK.</p>
-<p><b>Baidu</b> — founded in 2000, dominant in China with over 70% market share. Strikingly similar to Google in design but in Mandarin. <em>Heavily censored</em> — certain images and pro-democracy websites are blocked. Outside China it has little influence, but inside it powers 3.3 billion searches per day.</p>
-<p><b>Yandex</b> — used extensively in Russia, where it holds around 60% of the market. Similar service to Google: websites, images, videos, news, plus apps, maps, translation, cloud storage. Name comes from "Yet Another iNDEXer" (adopted 1993); the Yandex.ru domain launched in 1997; went public on NYSE in 2011 with a $1.3 billion IPO.</p>
-<p><b>Ecosia</b> — CO2-neutral search engine. Servers run on 100% renewable energy and about 80% of ad revenue goes toward planting trees. Roughly 45 searches plant one tree on average.</p>
-<p><i>Also worth mentioning: Search Encrypt — privacy-based, uses encryption, auto-erases history after 15 min inactivity.</i></p>`
+    answer: `<ul>
+<li><b>Bing</b> — Microsoft's; rewards points, US/UK popular.</li>
+<li><b>Baidu</b> — China leader (70%+), heavily censored, in Mandarin.</li>
+<li><b>Yandex</b> — Russia (~60%); "Yet Another iNDEXer".</li>
+<li><b>Ecosia</b> — CO2-neutral, ~80% ad revenue plants trees (~45 searches = 1 tree).</li>
+</ul>`
   },
   {
     id: 17,
     unit: "Unit 3 — Programming Languages",
     q: "How can programming languages be classified? Provide examples and talk about the distinctive features of each type.",
-    answer: `<p>Programming languages can be divided into two main classes based on <b>abstraction level</b>: <b>low-level</b> and <b>high-level</b>.</p>
-<p><b>Low-level languages</b> are closer to the hardware. They include:</p>
+    answer: `<p>By abstraction level: <b>low-level</b> vs <b>high-level</b>.</p>
 <ul>
-<li><b>Machine code</b> — strictly numerical, 0s and 1s. What computers actually run. No abstraction.</li>
-<li><b>Assembly languages</b> — use abbreviations like ADD, SUB, MUL. Translated into machine code by an <em>assembler</em>. Hardware-specific — each assembly is designed for a particular architecture.</li>
-</ul>
-<p>They're complex and restricted to particular machines.</p>
-<p><b>High-level languages</b> are closer to English and portable across hardware. Examples:</p>
-<ul>
-<li><b>FORTRAN</b> (1950s, IBM) — first high-level language, for scientific computation.</li>
-<li><b>BASIC</b> (1960s) — for beginners.</li>
-<li><b>PASCAL</b> (1970s) — for teaching programming fundamentals.</li>
-<li><b>C</b> (1970s, Dennis Ritchie at Bell Labs) — combined low-level control with high-level abstraction, suitable for systems programming.</li>
-<li><b>C++</b> — C with object-oriented programming.</li>
-<li><b>Java</b> (1995, Sun Microsystems) — platform-independent, "Write Once Run Anywhere," uses JVM.</li>
-<li><b>Python</b> (1989) — emphasizes readability and simplicity. Used in web dev, data analysis, AI.</li>
-</ul>
-<p>High-level programs must be translated to machine code by a <b>compiler</b> or <b>interpreter</b>.</p>`
+<li><b>Low-level</b> — <b>machine code</b> (0s/1s) and <b>assembly</b> (ADD, SUB; via assembler). Hardware-specific, fast, hard to write.</li>
+<li><b>High-level</b> — closer to English, portable. E.g. <b>C, C++, Java, Python</b>. Need a <b>compiler/interpreter</b>.</li>
+</ul>`
   },
   {
     id: 18,
     unit: "Unit 3 — Programming Languages",
     q: "What is OOP? What are the three key features of OOP? Talk about each of them.",
-    answer: `<p><b>OOP (Object-Oriented Programming)</b> is a programming paradigm used for handling multimedia applications where diverse data types like sound and video are packaged together into executable modules, and for writing more intuitive and reusable code.</p>
-<p>The three key features are:</p>
-<p><b>1. Encapsulation</b> — bundling data and program instructions into modules called <em>objects</em>. When the user selects an object (e.g. a "Triangles" icon), instructions inside it are executed with whatever properties or data the object holds. The encapsulation feature is great for complex apps where speech and moving images are integrated with text and graphics.</p>
-<p><b>2. Inheritance</b> — defining one class of objects (e.g. "Rectangles") and a specific instance (e.g. "Squares" — a rectangle with equal sides). All properties of rectangles ("has 4 sides," "contains 4 right angles") are automatically <em>inherited</em> by Squares.</p>
-<p><b>3. Polymorphism</b> — different objects can receive the same instruction but deal with it in different ways. Right-clicking on "Right triangle" might explain properties of right triangles; the same right-click on "Equilateral triangle" explains properties of equilateral triangles instead.</p>
-<p>Together, these lead to <b>code reusability</b> — new programs can be assembled from a library of objects, no need to write code from scratch. Makes development and maintenance faster.</p>`
+    answer: `<p><b>OOP</b> = code organized around <b>objects</b> (data + instructions). 3 features:</p>
+<ul>
+<li><b>Encapsulation</b> — bundle data + instructions into objects.</li>
+<li><b>Inheritance</b> — a class (Squares) inherits properties of another (Rectangles).</li>
+<li><b>Polymorphism</b> — same instruction, different objects react differently.</li>
+</ul>
+<p>→ <b>code reusability</b>.</p>`
   },
   {
     id: 19,
     unit: "Unit 3 — Programming Languages",
     q: "What is the difference between a compiler, an interpreter, and an assembler?",
-    answer: `<p>All three are translators, but they work on different levels and in different ways.</p>
-<p><b>Assembler</b> — translates <em>assembly language</em> (a low-level language using mnemonics like ADD, SUB, MUL) into <b>machine code</b>. Operates one level above machine code.</p>
-<p><b>Compiler</b> — translates a program written in a <em>high-level language</em> into object code (machine code) <b>all at once</b>, in one go, before execution. Output is a fast executable file.</p>
-<p><b>Interpreter</b> — also translates high-level code, but translates and executes the source code <b>line by line</b> as the program is running. No compiled executable is produced.</p>
-<p>Trade-off: compiled programs are faster and use less memory; interpreted ones are easier to debug and more portable but slower.</p>`
+    answer: `<p>All translators:</p>
+<ul>
+<li><b>Assembler</b> — assembly → machine code.</li>
+<li><b>Compiler</b> — high-level → machine code <b>all at once</b> (fast executable).</li>
+<li><b>Interpreter</b> — high-level, translates + runs <b>line by line</b> (slower, easier to debug).</li>
+</ul>`
   },
   {
     id: 20,
     unit: "Unit 4 — Web Design",
     q: "What are the three main tools used in web design? Talk about each of them.",
-    answer: `<p>The three tools that dominate web development are <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b>.</p>
-<p><b>HTML (Hypertext Markup Language)</b> — describes the <em>structure</em> of information on a webpage. Consists of commands called <b>tags</b> placed around different kinds of content (tables, paragraphs, lists, hyperlinks, images, videos) telling the web browser how to display them. This is the structural layer.</p>
-<p><b>CSS (Cascading Style Sheets)</b> — a design mechanism whose primary function is to improve the <em>appearance</em> of a webpage by defining its styling and layout. Provides a way to apply styles consistently across all pages of a website, making it easier to maintain and update. Presentational layer.</p>
-<p><b>JavaScript (JS)</b> — a cross-platform, object-oriented programming language used to make web pages interactive, intuitive, and user-friendly. Allows dynamically updating content, animations, pop-up menus, clickable buttons. While HTML and CSS control presentation and layout, JS controls the <em>behavior</em>. Without JavaScript, 90% of webpages would be static.</p>`
+    answer: `<ul>
+<li><b>HTML</b> — <em>structure</em> of the page via tags (text, links, images).</li>
+<li><b>CSS</b> — <em>appearance</em>: styling + layout, consistent across pages.</li>
+<li><b>JavaScript</b> — <em>behavior</em>: interactivity, animations, dynamic content.</li>
+</ul>`
   },
   {
     id: 21,
     unit: "Unit 4 — Web Design",
     q: "What is the difference between frontend and backend web development?",
-    answer: `<p>Frontend and backend are tightly connected — they can't exist separately — but they're completely different in the type of tasks and overall purpose.</p>
-<p><b>Frontend</b> is the development of the <em>visible part</em> of the site — everything the user sees and interacts with in the browser: buttons, text, animations, layout. Tools: <b>HTML, CSS, JavaScript</b>. HTML structures, CSS styles, JavaScript handles interaction.</p>
-<p><b>Backend</b> is the <em>server-side</em> part — all the internal processes hidden from the user that happen on the server, where user requests are processed. Backend developers work with:</p>
-<ul>
-<li><b>Databases</b>: SQLite, MySQL, MongoDB.</li>
-<li><b>Servers</b>: Nginx, Apache, IIS.</li>
-<li><b>Languages</b>: Java, PHP, Python, Ruby, etc.</li>
-</ul>
-<p>Frontend = what you see; backend = what you don't see but makes everything work.</p>`
+    answer: `<ul>
+<li><b>Frontend</b> — <em>visible part</em> in the browser (buttons, layout). Tools: <b>HTML, CSS, JS</b>.</li>
+<li><b>Backend</b> — <em>server-side</em>, hidden processes. Databases (MySQL, MongoDB), servers (Nginx, Apache), languages (PHP, Python, Java).</li>
+</ul>`
   },
   {
     id: 22,
     unit: "Unit 4 — Web Design",
     q: "What are the advantages and disadvantages of using website builders?",
-    answer: `<p><b>Advantages:</b></p>
-<ul>
-<li>No coding required — almost anyone can build a website.</li>
-<li><b>Predesigned templates</b> with professional looks save huge time.</li>
-<li><b>WYSIWYG editors</b> (What You See Is What You Get) let you edit visually, similar to editing a document.</li>
-<li>Drag-and-drop functionality for images and elements.</li>
-<li>Affordable and quick — you can have a site designed "in no time."</li>
-<li>Easy customization: changing colors and images is much quicker than starting from scratch.</li>
-<li>Many builders include add-on features like SEO tools, forums, image galleries, shopping carts.</li>
-</ul>
-<p><b>Disadvantages:</b></p>
-<ul>
-<li><em>Limited customization</em> compared to coding from scratch — you're locked into what the builder allows.</li>
-<li>Restrictions on functionality, especially on free tiers.</li>
-<li>Often have ads or platform branding on free plans.</li>
-<li>SEO and performance can be limited compared to a hand-coded site.</li>
-<li>You depend on the platform — hard to migrate elsewhere later.</li>
-<li>Templates can look generic if not customized enough.</li>
+    answer: `<ul>
+<li><b>Pros</b> — no coding, templates, WYSIWYG + drag-and-drop, cheap/fast, easy customization, add-ons (SEO, galleries, carts).</li>
+<li><b>Cons</b> — <em>limited customization</em>, functionality restrictions, ads/branding on free tier, weaker SEO/performance, platform lock-in, generic look.</li>
 </ul>`
   },
   {
     id: 23,
     unit: "Unit 4 — Web Design",
     q: "What is SEO? What is its main purpose?",
-    answer: `<p><b>SEO (Search Engine Optimization)</b> is the practice of optimizing websites for Google and other search engines. It refers to a <em>set of improvements</em> that help a website rank higher in the Search Engine Results Page (SERP).</p>
-<p>In short, SEO is about getting users to visit your site <b>without directly paying for advertising</b> — generating <em>organic traffic</em>.</p>
-<p>SEO is incredibly important because:</p>
-<ul>
-<li>Most people don't go beyond the first couple of pages of search results.</li>
-<li>Websites on the first page receive the <b>majority of clicks</b> — and the top three listings get most of those.</li>
-<li>The number of people clicking decreases the further down a website ranks.</li>
-</ul>
-<p>SEO is a fundamental part of digital marketing because people conduct millions of searches every day with intent to find products and services. Greater visibility and ranking higher than competitors can have a material impact on revenue.</p>`
+    answer: `<p><b>SEO</b> (Search Engine Optimization) = improvements that help a site rank higher in the <b>SERP</b>.</p>
+<p>Purpose: get visitors <b>without paying for ads</b> → <em>organic traffic</em>. Matters: most users stay on page 1; top listings get most clicks.</p>`
   },
   {
     id: 24,
     unit: "Unit 2/4 — SEO",
     q: "What is the difference between on-page SEO and off-page SEO?",
-    answer: `<p>These are the two main approaches to SEO.</p>
-<p><b>On-page SEO</b> covers everything you do <em>on your own website</em> to help it rank better:</p>
-<ul>
-<li>Keywords in titles, headings, and content.</li>
-<li>Content quality and relevance.</li>
-<li>Meta tags and descriptions.</li>
-<li>Page structure and internal linking.</li>
-<li>Load speed and mobile-friendliness.</li>
-<li>Image alt text and URL structure.</li>
-</ul>
-<p><b>Off-page SEO</b> covers everything done <em>outside your site</em> to build its authority and reputation:</p>
-<ul>
-<li><b>Backlinks</b> from other reputable websites (most important factor — Google sees them as votes of confidence).</li>
-<li>Social media signals and brand mentions.</li>
-<li>Guest posting on other sites.</li>
-<li>Online reviews and citations.</li>
-</ul>
-<p>So on-page = what you control directly on your site; off-page = how the rest of the web treats your site.</p>`
+    answer: `<ul>
+<li><b>On-page</b> — done <em>on your site</em>: keywords in titles/headings/content, meta tags, internal links, load speed, mobile-friendly, alt text.</li>
+<li><b>Off-page</b> — done <em>outside</em>: <b>backlinks</b> (most important), social signals, guest posts, reviews.</li>
+</ul>`
   },
   {
     id: 25,
     unit: "Unit 4 — Web Design",
     q: "What is meant by 'organic results'?",
-    answer: `<p><b>Organic results</b> are search results that appear <em>naturally</em> based on the search engine's algorithm — purely on relevance to the query.</p>
-<p>They are <b>not paid for</b>. The site owner didn't pay the search engine to put them there — they're earned through good SEO practices.</p>
-<p>This contrasts with <b>paid results</b> (also called sponsored or ad results), which appear at the top or side of the page because advertisers paid for placement. Paid results are usually labeled "Ad" or "Sponsored."</p>
-<p>The main purpose of SEO is exactly this — to get a website into the organic results, ranking as high as possible without paying for ads, since organic listings receive the majority of clicks.</p>`
+    answer: `<p><b>Organic results</b> = listings shown <em>naturally</em> by relevance (the algorithm), <b>not paid for</b>. Earned through SEO.</p>
+<p>Opposite of <b>paid/sponsored</b> results (labeled "Ad"). SEO's goal = rank high in organic results.</p>`
   },
   {
     id: 26,
     unit: "Unit 5 — Malware",
     q: "What is malware? What types of malware do you know? Talk about each one.",
-    answer: `<p><b>Malware</b> is malicious software designed to damage devices, networks, or steal sensitive information. Cybercriminals continuously develop new tools.</p>
-<p><b>Virus</b> — malicious code that infects applications serving as host programs for its replication. Can enter via infected USB or Internet. Propagates by modifying other programs and inserting its code.</p>
-<p><b>Worm</b> — standalone program that spreads rapidly, deletes files, creates botnets, or consumes bandwidth. Spreads through email attachments, replicates itself, exploits vulnerabilities.</p>
-<p><b>Trojan</b> — distributed through legitimate-looking freeware (utilities, games, fake antivirus). Doesn't replicate, but opens a <em>backdoor</em> for unauthorized access. Can delete, modify, or capture sensitive info.</p>
-<p><b>Ransomware</b> — encrypts data and demands payment for its release. Causes significant financial and operational damage. No guarantee that payment restores access.</p>
-<p><b>Spyware</b> — collects and reports user's Internet activity, can access microphone, location, calendar, contacts.</p>
-<p><b>Keylogger</b> — specific type of spyware. Records every keystroke (usernames, passwords) and transmits to hackers.</p>
-<p><b>Adware</b> — generates revenue by automatically displaying unwanted ads. Not illegal but annoying. Typically bundled with free downloads.</p>
-<p><b>Miner</b> — hijacks the victim's CPU/GPU to mine cryptocurrency. Slows the device, increases electricity bills, shortens device life.</p>`
+    answer: `<p><b>Malware</b> = malicious software to damage devices or steal info.</p>
+<ul>
+<li><b>Virus</b> — infects host programs, replicates.</li>
+<li><b>Worm</b> — standalone, self-spreads, builds botnets.</li>
+<li><b>Trojan</b> — fake freeware, no replication, opens <em>backdoor</em>.</li>
+<li><b>Ransomware</b> — encrypts data, demands payment.</li>
+<li><b>Spyware</b> / <b>Keylogger</b> — track activity / record keystrokes.</li>
+<li><b>Adware</b> — unwanted ads. <b>Miner</b> — hijacks CPU/GPU for crypto.</li>
+</ul>`
   },
   {
     id: 27,
     unit: "Unit 5 — Malware",
     q: "What are the four routines of a virus? Talk about the function of each.",
-    answer: `<p>To be a virus, a program only needs to have a reproduction routine. But viruses can have <b>four main parts</b>:</p>
-<p><b>1. Misdirection routine</b> — enables the virus to <em>hide itself</em>. Hides the presence of the malicious code.</p>
-<p><b>2. Reproduction routine</b> — allows the virus to <em>copy itself</em> to other programs. This is the only mandatory part of a virus. A program that has a payload but no reproduction routine is a <b>Trojan</b>, not a virus.</p>
-<p><b>3. Trigger</b> — causes the payload to be activated at a particular time or when a particular event takes place (e.g. a specific date, a key press).</p>
-<p><b>4. Payload</b> — does the actual damage. Can be a fairly harmless joke (displaying a message) or very destructive (deleting files on the hard disk).</p>
-<p>When infecting a file, the virus replaces the first instruction with a <b>JUMP command</b> that causes the virus instructions to run before the host program. After the virus executes, control returns to the host program, which continues normally.</p>`
+    answer: `<ul>
+<li><b>Misdirection</b> — hides the virus.</li>
+<li><b>Reproduction</b> — copies itself (<em>only mandatory part</em>; without it = Trojan).</li>
+<li><b>Trigger</b> — activates payload at a time/event.</li>
+<li><b>Payload</b> — does the damage (joke → deleting files).</li>
+</ul>
+<p>Infection uses a <b>JUMP command</b> to run virus before host.</p>`
   },
   {
     id: 28,
     unit: "Unit 5 — Malware",
     q: "What types of cybercrime do you know? Talk about each of them.",
-    answer: `<p><b>Phishing</b> — attempt to steal sensitive info (usernames, passwords, credit card numbers) by sending fake emails with links to phishing websites. Attacker disguises as a legitimate source.</p>
-<p><b>DDoS attack</b> — hackers overload networks and servers with traffic from many sources so legitimate users can't access them.</p>
-<p><b>Website defacement</b> — vandalism that changes the visual appearance of a webpage. Done for ideological, political, or personal reasons. Causes financial loss and reputation damage.</p>
-<p><b>Salami shaving</b> — theft of small amounts of money from a large number of accounts. The fraudster avoids detection by keeping each transaction tiny over a long period.</p>
-<p><b>Piggybacking</b> — obtaining wireless access to a business's network because it's unprotected or uses a weak password.</p>
-<p><b>Software piracy</b> — unauthorized copying of a program for sale or distribution. A copyright violation.</p>
-<p><b>Hijacking</b> — redirecting someone trying to visit a certain site elsewhere.</p>
-<p><b>Backdoor</b> — leaving an illicit program within a completed system that allows unauthorized entry later.</p>
-<p>Prevention: don't open email attachments from strangers, take care downloading files, keep antivirus updated.</p>`
+    answer: `<ul>
+<li><b>Phishing</b> — fake emails/sites steal data.</li>
+<li><b>DDoS</b> — overload servers from many sources.</li>
+<li><b>Website defacement</b> — vandalize a page's look.</li>
+<li><b>Salami shaving</b> — tiny thefts from many accounts.</li>
+<li><b>Piggybacking</b> — use an unprotected network.</li>
+<li><b>Software piracy</b>, <b>hijacking</b>, <b>backdoor</b>.</li>
+</ul>`
   },
   {
     id: 29,
     unit: "Unit 5 — Malware",
     q: "What is the difference between a virus and a worm?",
-    answer: `<p>The main difference is in <b>activation and spreading mechanism</b>.</p>
-<p><b>Viruses</b> must be <em>triggered by the activation of their host</em>. They're often attached or concealed in downloaded files. When the host file is accepted by a system, the virus stays <em>dormant</em> until that file is activated. Only then can the virus run, execute malicious code, and replicate to infect other files. They <em>require human intervention</em> (someone opening the file).</p>
-<p><b>Worms</b> are <em>standalone</em> malicious programs that can self-replicate and propagate <em>independently</em> as soon as they have breached the system. They don't require a host file or any human action. Once a worm enters the system (usually via a network connection), it self-replicates and spreads across the network, infecting any inadequately protected computers it can reach.</p>
-<p>So: virus = needs a host + human action; worm = autonomous and network-spreading.</p>`
+    answer: `<ul>
+<li><b>Virus</b> — needs a <em>host file</em> + human action; stays dormant until the file runs, then replicates.</li>
+<li><b>Worm</b> — <em>standalone</em>; self-replicates and spreads across the network independently, no host, no human action.</li>
+</ul>`
   },
   {
     id: 30,
     unit: "Unit 5 — Malware",
     q: "What is the difference between a virus and a Trojan?",
-    answer: `<p>The key technical difference: a <b>virus replicates itself</b>, but a <b>Trojan does not</b>.</p>
-<p>A <b>virus</b> is malicious code that infects host programs, attaches itself to them, and spreads by inserting its code into other programs. The reproduction routine is what defines it as a virus.</p>
-<p>A <b>Trojan horse</b> is distributed through some form of <em>legitimate-looking freeware</em> — utilities, games, fake antivirus programs. It <em>misleads users</em> by pretending to be useful. Unlike viruses, Trojans don't replicate themselves, but they can be just as destructive — they can delete, modify, or capture sensitive information. Moreover, Trojans open a <b>backdoor entry</b> to the computer, allowing a malicious actor to gain unauthorized access.</p>
-<p>In the formal definition: a program that has a payload but does not have a reproduction routine is a Trojan, not a virus.</p>`
+    answer: `<ul>
+<li><b>Virus</b> — <em>replicates itself</em>, infects host programs.</li>
+<li><b>Trojan</b> — <em>does not replicate</em>; disguised as legit freeware, opens a <b>backdoor</b> for unauthorized access.</li>
+</ul>
+<p>Payload but no reproduction routine = Trojan.</p>`
   },
   {
     id: 31,
     unit: "Unit 5/6 — Security",
     q: "What is the difference between DoS and DDoS attack? How is a DDoS attack performed?",
-    answer: `<p><b>DoS (Denial of Service)</b> attack comes from a <em>single source</em> — one machine flooding the target with requests until the server can't keep up with legitimate traffic. Easier to handle: you can block the single source IP.</p>
-<p><b>DDoS (Distributed Denial of Service)</b> attack comes from <em>many sources</em> at once — distributed. Hackers overload networks and servers with traffic from thousands of devices simultaneously. Much harder to defend against because traffic comes from many legitimate-looking IPs.</p>
-<p><b>How a DDoS attack is performed:</b> hackers use a <b>botnet</b> — a network of compromised computers, often infected with malware without their owners knowing. The hacker commands all the bots in the botnet to send traffic to the same target at the same time. The target's server is overwhelmed and either crashes or becomes unresponsive to legitimate users.</p>
-<p>Reasons for DDoS: extortion, hacktivism, competitive sabotage, distraction from another attack.</p>`
+    answer: `<ul>
+<li><b>DoS</b> — flood from a <em>single source</em>; block the one IP.</li>
+<li><b>DDoS</b> — flood from <em>many sources</em>; harder to block.</li>
+</ul>
+<p><b>How</b>: a <b>botnet</b> (infected computers) all hit the same target at once → server overwhelmed.</p>`
   },
   {
     id: 32,
     unit: "Unit 6 — Data Security",
     q: "What is a firewall? What can firewall filters be based on?",
-    answer: `<p>A <b>firewall</b> is a combination of software and hardware used to protect private networks by filtering incoming data traffic. It's like the firewall of a building — it stops threats from spreading.</p>
-<p>One common method is <b>packet filtering</b>: incoming data is broken into small chunks (packets), and the firewall inspects each packet using a set of filters, deciding to <em>permit or deny access</em>.</p>
-<p><b>Filters can be based on:</b></p>
-<ul>
-<li><b>IP addresses</b> — block specific IPs generating suspicious traffic.</li>
-<li><b>Domain names</b> — block traffic to or from certain domains.</li>
-<li><b>Port numbers</b> — block specific ports used by attackers.</li>
-<li><b>Protocols.</b></li>
-<li><b>Certain words or phrases</b> in packet content.</li>
-</ul>
-<p>Users can create <b>exceptions</b> to allow specific unauthorized programs through without lowering overall security.</p>
-<p>Types: <b>host-based</b> firewall (on a single machine) and <b>network-based</b> firewall (protects the whole network). Combining both gives stronger defense — set up by the network administrator.</p>`
+    answer: `<p><b>Firewall</b> = software + hardware filtering incoming traffic to protect a network. Uses <b>packet filtering</b> → permit/deny.</p>
+<p>Filters based on: <b>IP addresses, domain names, ports, protocols, words/phrases</b>. Types: host-based & network-based.</p>`
   },
   {
     id: 33,
     unit: "Unit 6 — Data Security",
     q: "What is the difference between signature-based scanning and heuristic scanning?",
-    answer: `<p>Both are antivirus techniques but they work differently.</p>
-<p><b>Signature-based scanning</b> matches signatures found in files against a <em>database of known malware</em>. Every virus has a unique signature — like a fingerprint. Only catches malware that's <b>already been identified</b> and added to the database. Reliable for known threats but can't catch brand-new ones.</p>
-<p><b>Heuristic scanning</b> uses <em>rules and algorithms</em> to look for commands that may indicate malicious intent. It causes the antivirus to recognize <b>new malware</b> without having an exact match in the database — based on suspicious behavior or code patterns.</p>
-<p>Most antivirus programs use both in combination — signatures for reliability on known threats, heuristics to catch new malware trying to evade detection.</p>`
+    answer: `<ul>
+<li><b>Signature-based</b> — match files against a <em>database of known malware</em>. Catches only known threats.</li>
+<li><b>Heuristic</b> — rules/algorithms spot suspicious behavior → catches <b>new malware</b> with no exact match.</li>
+</ul>
+<p>Most antivirus use both.</p>`
   },
   {
     id: 34,
     unit: "Unit 6 — Data Security",
     q: "What is a signature?",
-    answer: `<p>Every virus contains a <b>signature</b> — its unique distinguishing feature, <em>like a fingerprint</em>.</p>
-<p>It's the feature that sets the virus apart from other programs running on a computer, and it also makes the virus <b>recognizable</b> to antivirus software — therefore a potential target for detection.</p>
-<p>Antivirus software maintains a database of known signatures. Documents, programs, and applications are scanned for these signatures when they're being used — when an executable is downloaded, it's instantly scanned to check if it's infected with malware whose signature is in the database.</p>
-<p>If a new malware doesn't have a signature in the database yet, antivirus has to rely on <em>heuristic scanning</em> instead.</p>`
+    answer: `<p>A virus's unique distinguishing feature — <em>like a fingerprint</em>. Makes it <b>recognizable</b> to antivirus.</p>
+<p>Antivirus keeps a database of signatures, scans files against it. No signature yet → rely on <em>heuristic scanning</em>.</p>`
   },
   {
     id: 35,
     unit: "Unit 6 — Data Security",
     q: "What are the two main types of encryption? What is the difference?",
-    answer: `<p>Encryption is a way of encoding data so that only authorized parties can understand the information. The two main types are <b>symmetric</b> and <b>asymmetric (public key)</b> encryption.</p>
-<p><b>Symmetric encryption</b> — <em>all parties have the same key</em>. The key is used both to encrypt and decrypt messages. It must be kept secret, or security is compromised. Faster, but distributing the key safely is a problem.</p>
-<p><b>Asymmetric encryption (public key)</b> — uses <em>two keys</em>:</p>
-<ul>
-<li>The <b>private key</b> is kept secret.</li>
-<li>The <b>public key</b> is made widely available to anyone who needs it.</li>
+    answer: `<ul>
+<li><b>Symmetric</b> — <em>same key</em> encrypts + decrypts. Fast, but key distribution is risky.</li>
+<li><b>Asymmetric (public key)</b> — <b>private key</b> (secret) + <b>public key</b> (shared). Slower, solves key distribution.</li>
 </ul>
-<p>The keys are mathematically related: information encrypted with the public key can only be decrypted by the corresponding private key. Slower, but solves the key distribution problem.</p>
-<p>Encryption provides confidentiality, plus <b>authentication</b> (verifies origin), <b>integrity</b> (proves content wasn't changed), and <b>non-repudiation</b> (sender can't deny sending).</p>`
+<p>Also gives authentication, integrity, non-repudiation.</p>`
   },
   {
     id: 36,
     unit: "Unit 6 — Data Security",
     q: "What two methods of breaking a cipher are there?",
-    answer: `<p>There are two main methods of attacking encryption.</p>
-<p><b>1. Brute force</b> — the most basic method. Trying <em>random keys until the right one is found</em>. The length of the key determines the possible number of keys and affects the plausibility of this attack.</p>
-<p>Encryption strength is <em>directly proportional to key size</em>, but as the key size increases, so does the number of resources required for the computation. With modern key lengths, brute-forcing is practically impossible.</p>
-<p><b>2. Cryptanalysis</b> — finding a <em>weakness in the cipher</em> itself and exploiting it. More likely to occur when there's a flaw in the cipher itself or its implementation. Doesn't try every key — instead, finds a mathematical shortcut.</p>
-<p>Brute force = exhaustive search. Cryptanalysis = clever shortcut through a flaw.</p>`
+    answer: `<ul>
+<li><b>Brute force</b> — try random keys until one works. Key size ↑ → harder (practically impossible now).</li>
+<li><b>Cryptanalysis</b> — find a <em>weakness/flaw</em> in the cipher; a mathematical shortcut.</li>
+</ul>`
   },
   {
     id: 37,
     unit: "Unit 6 — Data Security",
     q: "What is a CAPTCHA? Where is this tool implemented?",
-    answer: `<p><b>CAPTCHA</b> stands for <b>Completely Automated Public Turing test to tell Computers and Humans Apart</b>.</p>
-<p>It's a challenge-response test used on websites to <em>distinguish humans from bots</em>. Typical formats:</p>
-<ul>
-<li>Distorted text that the user must recognize and type.</li>
-<li>Image puzzles ("select all squares with traffic lights").</li>
-<li>Click-the-checkbox tests ("I'm not a robot").</li>
-<li>Logic puzzles or simple math.</li>
-</ul>
-<p><b>Where it's used:</b></p>
-<ul>
-<li><b>Login forms</b> — to stop brute-force password attacks.</li>
-<li><b>Signup pages</b> — to prevent mass automated account creation.</li>
-<li><b>Comment sections</b> — to block spam bots.</li>
-<li><b>Ticket-purchase pages</b> — to stop scalper bots buying tickets in bulk.</li>
-<li><b>Online voting and forms</b> — to ensure real human input.</li>
-</ul>
-<p>It's essentially a reverse Turing test — the machine judges whether the user is human.</p>`
+    answer: `<p><b>CAPTCHA</b> = Completely Automated Public Turing test to tell Computers and Humans Apart. Distinguishes <em>humans from bots</em> (distorted text, image puzzles, "I'm not a robot").</p>
+<p>Used on: <b>login & signup forms, comment sections, ticket pages, online voting</b>.</p>`
   },
   {
     id: 38,
     unit: "Unit 6 — Data Security",
     q: "What is the Turing test? Talk about its procedure.",
-    answer: `<p>The <b>Turing test</b> was proposed by <b>Alan Turing</b> in <b>1950</b>, originally called <em>"The Imitation Game"</em>. The idea was to check whether a machine can think — whether it has intelligence.</p>
-<p><b>Procedure:</b></p>
+    answer: `<p><b>Turing test</b> — proposed by <b>Alan Turing, 1950</b> ("Imitation Game"). Checks if a machine can think.</p>
 <ul>
-<li>There are two <b>contestants</b> — one human (of either gender) and one computer.</li>
-<li>There's a <b>judge</b> (interrogator) whose job is to decide which of the two is human and which is the machine.</li>
-<li>The judge asks a series of questions to both contestants — communication is done via text so the judge can't see or hear them.</li>
-<li>If the judge's accuracy is <em>less than 50%</em> — meaning the judge is essentially guessing — then the computer has fooled them well enough to be considered intelligent.</li>
+<li>Two contestants: 1 human, 1 computer; a <b>judge</b> decides which is which via text.</li>
+<li>Judge accuracy &lt; 50% → machine is "intelligent".</li>
 </ul>
-<p><b>Notable moments:</b></p>
-<ul>
-<li><b>ELIZA</b> and <b>PARRY</b> — early programs that fooled judges, but exposed weaknesses in the test (simple pattern matching could work).</li>
-<li><b>2014: Eugene Goostman</b> — a chatbot claimed to pass by pretending to be a <em>13-year-old Ukrainian boy</em>, which excused his imperfect English and limited knowledge.</li>
-</ul>`
+<p><b>2014: Eugene Goostman</b> — posed as a 13-year-old Ukrainian boy.</p>`
   },
   {
     id: 39,
     unit: "Unit 7 — Future of IT",
     q: "What is the difference between classification and clustering?",
-    answer: `<p>Both are tasks that neural networks can perform — both involve sorting data into categories — but the key difference is whether the categories are known in advance.</p>
-<p><b>Classification</b> means <em>classifying data sets into <b>predefined</b> classes</em>. The categories are <b>known in advance</b>, and the network learns to assign incoming data to one of them. Example: spam vs not-spam — the two classes are defined before training.</p>
-<p><b>Clustering</b> means <em>classifying data into <b>undefined</b> categories</em>. The categories are <b>not predefined</b>. The network finds patterns in the data and groups similar items together on its own, without being told what the groups should be. Example: grouping customers by purchasing behavior without prior labels.</p>
-<p>In machine learning terms: classification is <em>supervised learning</em> (you have labels); clustering is <em>unsupervised learning</em> (no labels — the network discovers structure).</p>`
+    answer: `<ul>
+<li><b>Classification</b> — sort data into <b>predefined</b> classes (known in advance). <em>Supervised</em> learning (labels). E.g. spam/not-spam.</li>
+<li><b>Clustering</b> — group data into <b>undefined</b> categories the network finds itself. <em>Unsupervised</em> (no labels).</li>
+</ul>`
   },
   {
     id: 40,
     unit: "Unit 7 — Future of IT",
     q: "What is backpropagation?",
-    answer: `<p><b>Backpropagation</b> is the <em>feedback process</em> by which a neural network learns. For a neural network to learn, there has to be an element of feedback — just as children learn by being told what they're doing right or wrong.</p>
-<p><b>How it works:</b></p>
+    answer: `<p><b>Backpropagation</b> = feedback process a network learns by.</p>
 <ul>
-<li>The network compares the <em>output it actually produces</em> with the <em>output it was supposed to produce</em>.</li>
-<li>The <b>difference</b> between them is the error.</li>
-<li>The network uses this difference to <b>modify the weights</b> of connections between units.</li>
-<li>The modification works <em>backward</em>: from the output units, through the hidden units, to the input units — going "back" through the network, hence the name.</li>
+<li>Compares actual output vs intended output → the <b>error</b>.</li>
+<li>Uses error to <b>modify weights</b>, working <em>backward</em>: output → hidden → input.</li>
 </ul>
-<p>In time, backpropagation causes the network to learn, reducing the difference between actual and intended output until they exactly coincide — so the network figures things out as it should.</p>`
+<p>Repeats until error ~0.</p>`
   },
   {
     id: 41,
     unit: "Unit 7 — Future of IT",
     q: "What is an artificial neural network? What tasks can neural networks accomplish?",
-    answer: `<p><b>An artificial neural network (ANN)</b> is a computer model that simulates the work of the biological brain — copying it in a simplified but reasonably faithful way. It creates lots of densely interconnected nodes (artificial neurons) inside a computer to learn things and make decisions in a humanlike way.</p>
-<p>Technically, these are collections of algebraic variables and mathematical equations linking them — numbers stored in boxes whose values constantly change.</p>
-<p><b>Tasks neural networks can accomplish:</b></p>
-<ul>
-<li><b>Face recognition</b>.</li>
-<li><b>Autonomous driving</b> — making cars drive on the roads.</li>
-<li><b>Generating realistic CGI faces</b>.</li>
-<li><b>Machine translation</b>.</li>
-<li><b>Fraud detection</b>.</li>
-<li><b>Classification</b> — into predefined classes.</li>
-<li><b>Clustering</b> — into undefined categories.</li>
-<li><b>Prediction</b> — using past events to guess future ones (stock market, box office).</li>
-</ul>
-<p>They're excellent at finding patterns too complex or numerous for a human programmer to extract. <em>Neural networks are not programmed — they are trained.</em></p>`
+    answer: `<p><b>ANN</b> = computer model simulating the brain via densely interconnected <b>nodes</b> (neurons) to learn humanlike.</p>
+<p>Tasks: <b>face recognition, autonomous driving, machine translation, fraud detection, classification, clustering, prediction</b>. <em>Trained, not programmed.</em></p>`
   },
   {
     id: 42,
     unit: "Unit 7 — Future of IT",
     q: "In what way is an artificial neural network similar to the biological brain? Describe its structure.",
-    answer: `<p>An ANN mimics the brain by using many <b>densely interconnected nodes</b> (artificial neurons) that influence each other through weighted connections — similar to how brain cells trigger one another across tiny gaps called <em>synapses</em>.</p>
-<p><b>Structure of an ANN:</b></p>
+    answer: `<p>Like brain neurons across <em>synapses</em>, an ANN has interconnected nodes with weighted links.</p>
+<p>Structure — <b>units</b> in layers:</p>
 <ul>
-<li>A typical network has from a few dozen to millions of artificial neurons called <b>units</b>, arranged in a <em>series of layers</em>.</li>
-<li><b>Input units</b> — receive various forms of information from the outside world that the network will try to learn, recognize, or process.</li>
-<li><b>Hidden units</b> — sit between input and output. One or more layers of them form the majority of the artificial brain.</li>
-<li><b>Output units</b> — signal how the network responds to the information it's learned.</li>
+<li><b>Input units</b> — receive info.</li>
+<li><b>Hidden units</b> — process (the bulk).</li>
+<li><b>Output units</b> — give the response.</li>
 </ul>
-<p>Most networks are <b>fully connected</b> — each unit in one layer is connected to every unit in the next.</p>
-<p>Connections have <b>weights</b> — numbers that can be <em>positive</em> (one unit excites another) or <em>negative</em> (one unit suppresses/inhibits another). The higher the weight, the more influence one unit has on another.</p>`
+<p>Usually <b>fully connected</b>; weights positive (excite) or negative (inhibit).</p>`
   },
   {
     id: 43,
     unit: "Unit 7 — Future of IT",
     q: "Why are neural networks compared to 'black boxes'?",
-    answer: `<p>Neural networks are called <b>"black boxes"</b> because the user feeds in data and receives answers, but the <em>exact decision-making process inside isn't accessible</em>.</p>
-<p>You can <b>fine-tune the answers</b> by training, but you don't know <em>how exactly</em> these answers were produced — which specific weights and pathways led to that conclusion.</p>
-<p>This is a major problem because:</p>
-<ul>
-<li>It's hard to <b>debug</b> errors.</li>
-<li>It's hard to <b>trust</b> the network for critical decisions (medicine, justice, finance).</li>
-<li>It's hard to verify there's no hidden bias.</li>
-<li>It's hard to <b>explain</b> decisions to users or regulators.</li>
-</ul>
-<p>This is the problem a number of researchers are working on today (the field of <em>explainable AI</em>), and it will only become more important as ANNs play a bigger role in our lives.</p>`
+    answer: `<p>You feed in data and get answers, but the <em>internal decision-making isn't accessible</em> — you don't know <b>how</b> the answer was produced.</p>
+<p>Problem: hard to <b>debug</b>, <b>trust</b>, check for bias, or <b>explain</b> → field of <em>explainable AI</em>.</p>`
   },
   {
     id: 44,
     unit: "Unit 7 — Future of IT",
     q: "What is IoT? What are the major problems in using the IoT technology?",
-    answer: `<p><b>IoT (Internet of Things)</b> is a system of interrelated physical objects, animals, or people that are provided with <b>unique identifiers (UIDs)</b> and the ability to transfer data over a network without requiring human-to-human or human-to-computer interaction.</p>
-<p>A "thing" can be a person with a heart monitor implant, a farm animal with a biochip transponder, a car with built-in sensors for tire pressure, or any object assigned an IP address.</p>
-<p><b>Major problems / disadvantages:</b></p>
-<ul>
-<li><b>Security risk</b> — as the number of connected devices increases and more information is shared, the risk of a hacker stealing confidential data also grows.</li>
-<li><b>Massive data management</b> — enterprises may eventually have to deal with millions of IoT devices; collecting and managing all that data is challenging.</li>
-<li><b>Bug cascading</b> — if there's a bug in the system, it's likely every connected device will become corrupted.</li>
-<li><b>No international compatibility standard</b> — it's difficult for devices from different manufacturers to communicate with each other.</li>
-</ul>
-<p><b>Benefits</b> (worth mentioning briefly): access from anywhere on any device, automation reducing labor costs, real-time business insights.</p>`
+    answer: `<p><b>IoT</b> = network of physical objects with <b>unique identifiers (UIDs)</b> transferring data with no human interaction (e.g. car sensors, heart monitor).</p>
+<p>Problems: <b>security risk</b>, <b>massive data management</b>, <b>bug cascading</b>, <b>no compatibility standard</b>.</p>`
   },
   {
     id: 45,
     unit: "Unit 7 — Future of IT",
     q: "What is HLAI? What are the risks of using HLAI?",
-    answer: `<p><b>HLAI</b> stands for <b>Human-Like Artificial Intelligence</b> — AI specifically designed to match human intelligence, mimicking how humans think and behave.</p>
-<p><b>Benefits</b> include:</p>
-<ul>
-<li>Soaring productivity.</li>
-<li>Increased leisure.</li>
-<li>A better understanding of our own minds.</li>
-</ul>
-<p><b>Risks:</b></p>
-<ul>
-<li>Not all types of AI are human-like — and an <em>excessive focus</em> on developing and deploying HLAI can lead us into a <b>trap</b>.</li>
-<li>As machines become better <b>substitutes for human labor</b>, workers lose economic and political bargaining power.</li>
-<li>Workers become <em>increasingly dependent on those who control the technology</em>.</li>
-<li>Concentration of power in the hands of a few tech owners.</li>
-</ul>
-<p>The alternative perspective: when AI is focused on <b>augmenting humans</b> rather than mimicking them, then humans retain control. Augmentation creates new capabilities, products, and services — ultimately generating <em>far more value</em> than merely human-like AI.</p>`
+    answer: `<p><b>HLAI</b> = Human-Like Artificial Intelligence — AI mimicking how humans think.</p>
+<p>Risks: excessive focus = a <b>trap</b>; machines <b>substitute human labor</b> → workers lose bargaining power, grow dependent; power concentrates in a few owners.</p>
+<p>Better path: <b>augment</b> humans, not mimic.</p>`
   }
 ];
 
