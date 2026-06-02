@@ -31,6 +31,7 @@ let learned = loadLearned();
 const VIEWS = {
   exam: "#view-exam",
   cards: "#view-cards",
+  razbor: "#view-razbor",
   cloze: "#view-cloze",
   match: "#view-match",
   defs: "#view-defs",
@@ -41,6 +42,7 @@ function switchMode(mode) {
   $$(".mode-btn").forEach((b) => b.classList.toggle("is-active", b.dataset.mode === mode));
   Object.entries(VIEWS).forEach(([m, sel]) => $(sel).classList.toggle("hidden", m !== mode));
   if (mode === "cards") renderCard();
+  if (mode === "razbor") showRazborIntro();
   if (mode === "cloze") showClozeIntro();
   if (mode === "match") showMatchIntro();
   if (mode === "defs") showDefsIntro();
@@ -673,8 +675,168 @@ $("#cloze-check").addEventListener("click", checkCloze);
 $("#cloze-reveal").addEventListener("click", revealCloze);
 $("#cloze-next").addEventListener("click", nextCloze);
 
+// =====================================================
+//  RAZBOR MODE — assign each property to the right concept
+//  Trains the core KM3 skill: structure recall + distinctions.
+//  Auto-built from QUESTIONS answers (<li><b>label</b> — property</li>).
+// =====================================================
+const RAZBOR_QUESTIONS = 6; // questions per round
+
+// Parse one answer into [{label, prop}]; needs >=2 distinct labeled points.
+function parseStructured(item) {
+  const tmp = document.createElement("div");
+  tmp.innerHTML = item.answer;
+  const points = [];
+  tmp.querySelectorAll("li").forEach((li) => {
+    const b = li.querySelector("b");
+    if (!b) return;
+    const label = b.textContent.trim();
+    const prop = li.textContent.replace(label, "").replace(/^[\s—–-]+/, "").trim();
+    if (label && prop) points.push({ label, prop });
+  });
+  const labels = new Set(points.map((p) => p.label));
+  return labels.size >= 2 ? { q: item.q, unit: item.unit, points } : null;
+}
+
+const RAZBOR_POOL = QUESTIONS.map(parseStructured).filter(Boolean);
+
+let razborSet = [];
+let razborQi = 0; // question index
+let razborQueue = []; // shuffled points of current question
+let razborPi = 0; // point index within question
+let razborLabels = []; // unique labels of current question
+let razborScore = 0;
+let razborTotal = 0;
+let razborStreak = 0;
+let razborBestStreak = 0;
+let razborAnswered = false;
+
+function buildRazborUnitFilter() {
+  const units = Array.from(new Set(RAZBOR_POOL.map((r) => r.unit)));
+  const sel = $("#razbor-unit");
+  sel.innerHTML =
+    `<option value="all">Все темы</option>` +
+    units.map((u) => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join("");
+}
+
+function showRazborIntro() {
+  $("#razbor-intro").classList.remove("hidden");
+  $("#razbor-run").classList.add("hidden");
+  $("#razbor-result").classList.add("hidden");
+}
+
+function startRazbor() {
+  const filter = $("#razbor-unit").value;
+  const pool = filter === "all" ? RAZBOR_POOL.slice() : RAZBOR_POOL.filter((r) => r.unit === filter);
+  razborSet = shuffle(pool).slice(0, Math.min(RAZBOR_QUESTIONS, pool.length));
+  razborQi = 0;
+  razborScore = 0;
+  razborTotal = 0;
+  razborStreak = 0;
+  razborBestStreak = 0;
+  $("#razbor-intro").classList.add("hidden");
+  $("#razbor-result").classList.add("hidden");
+  $("#razbor-run").classList.remove("hidden");
+  loadRazborQuestion();
+}
+
+function loadRazborQuestion() {
+  const item = razborSet[razborQi];
+  razborQueue = shuffle(item.points);
+  razborPi = 0;
+  razborLabels = Array.from(new Set(item.points.map((p) => p.label)));
+  renderRazborProp();
+}
+
+function renderRazborProp() {
+  razborAnswered = false;
+  const item = razborSet[razborQi];
+  const point = razborQueue[razborPi];
+  $("#razbor-progress").textContent =
+    `Вопрос ${razborQi + 1}/${razborSet.length} · признак ${razborPi + 1}/${razborQueue.length}`;
+  $("#razbor-streak").textContent = `🔥 Серия: ${razborStreak}`;
+  $("#razbor-context").textContent = item.q;
+  $("#razbor-prop").innerHTML = `<p class="q-text">${escapeHtml(point.prop)}</p>`;
+  $("#razbor-explain").classList.add("hidden");
+  $("#razbor-next").classList.add("hidden");
+
+  const box = $("#razbor-options");
+  box.innerHTML = "";
+  shuffle(razborLabels).forEach((label) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "option";
+    b.textContent = label;
+    b.addEventListener("click", () => answerRazbor(label, b));
+    box.appendChild(b);
+  });
+}
+
+function answerRazbor(choice, btn) {
+  if (razborAnswered) return;
+  razborAnswered = true;
+  const point = razborQueue[razborPi];
+  const correct = choice === point.label;
+  $$("#razbor-options .option").forEach((b) => {
+    b.disabled = true;
+    if (b.textContent === point.label) b.classList.add("correct");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  razborTotal++;
+  if (correct) {
+    razborScore++;
+    razborStreak++;
+    razborBestStreak = Math.max(razborBestStreak, razborStreak);
+  } else {
+    razborStreak = 0;
+  }
+  const exp = $("#razbor-explain");
+  exp.innerHTML = correct
+    ? `✔ Верно — <b>${escapeHtml(point.label)}</b>.`
+    : `✘ Это <b>${escapeHtml(point.label)}</b>.`;
+  exp.classList.remove("hidden");
+  $("#razbor-streak").textContent = `🔥 Серия: ${razborStreak}`;
+
+  const lastPoint = razborPi + 1 >= razborQueue.length;
+  const lastQuestion = razborQi + 1 >= razborSet.length;
+  $("#razbor-next").classList.remove("hidden");
+  $("#razbor-next").textContent = lastPoint && lastQuestion ? "Показать результат" : "Дальше →";
+}
+
+function nextRazbor() {
+  razborPi++;
+  if (razborPi >= razborQueue.length) {
+    razborQi++;
+    if (razborQi >= razborSet.length) {
+      finishRazbor();
+      return;
+    }
+    loadRazborQuestion();
+  } else {
+    renderRazborProp();
+  }
+}
+
+function finishRazbor() {
+  $("#razbor-run").classList.add("hidden");
+  $("#razbor-result").classList.remove("hidden");
+  const pct = razborTotal ? Math.round((razborScore / razborTotal) * 100) : 0;
+  $("#razbor-score").textContent = `${razborScore} / ${razborTotal} (${pct}%)`;
+  let verdict = `Лучшая серия: ${razborBestStreak}. `;
+  if (pct >= 90) verdict += "Структуру ответов держишь чётко! 🎉";
+  else if (pct >= 70) verdict += "Хорошо — пара различий ещё путается.";
+  else if (pct >= 50) verdict += "Средне. Прогони «Карточки» и вернись.";
+  else verdict += "Сначала разбери ответы в «Карточках».";
+  $("#razbor-verdict").textContent = verdict;
+}
+
+$("#razbor-start").addEventListener("click", startRazbor);
+$("#razbor-again").addEventListener("click", startRazbor);
+$("#razbor-next").addEventListener("click", nextRazbor);
+
 // ---------- init ----------
 buildUnitFilter();
 buildMatchUnitFilter();
 buildClozeUnitFilter();
+buildRazborUnitFilter();
 renderCard();
