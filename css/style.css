@@ -286,6 +286,66 @@ select {
 }
 .site-footer p { margin: 0; color: var(--text-dim); font-size: 0.85rem; text-align: center; }
 
+/* ---------- Match game ---------- */
+.match-setup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0.4rem 0 0.8rem;
+}
+.match-setup label { color: var(--text-dim); font-size: 0.9rem; }
+
+.recall-mastery { font-weight: 600; color: var(--accent); min-height: 1.2em; }
+
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+@media (min-width: 620px) {
+  .match-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.match-cell {
+  appearance: none;
+  cursor: pointer;
+  min-height: 64px;
+  padding: 0.7rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.3;
+  transition: transform 0.1s, background 0.18s, border-color 0.18s, opacity 0.3s;
+}
+.match-cell.en { border-left: 3px solid var(--accent); }
+.match-cell.ru { border-left: 3px solid var(--accent-2); }
+.match-cell:hover:not(.done) { transform: translateY(-1px); border-color: var(--accent); }
+.match-cell.selected {
+  background: linear-gradient(90deg, rgba(91, 140, 255, 0.25), rgba(124, 92, 255, 0.25));
+  border-color: var(--accent);
+}
+.match-cell.wrong {
+  background: rgba(248, 113, 113, 0.18);
+  border-color: var(--bad);
+  animation: shake 0.4s ease;
+}
+.match-cell.done {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
 /* ---------- Card learned state ---------- */
 .flashcard.learned { border-color: rgba(52, 211, 153, 0.55); }
 .flashcard.learned::after {

@@ -15,6 +15,8 @@
       <nav class="modes" aria-label="Режимы">
         <button class="mode-btn is-active" data-mode="exam" type="button">🎓 Экзамен (8)</button>
         <button class="mode-btn" data-mode="cards" type="button">🗂️ Карточки (45)</button>
+        <button class="mode-btn" data-mode="match" type="button">🧩 Пары</button>
+        <button class="mode-btn" data-mode="defs" type="button">📖 Определения</button>
         <button class="mode-btn" data-mode="test" type="button">✅ Тест</button>
       </nav>
     </div>
@@ -85,6 +87,71 @@
         <button id="card-flip" class="btn primary" type="button">Перевернуть</button>
         <button id="card-known" class="btn good" type="button">Отметить «выучено»</button>
         <button id="card-next" class="btn" type="button">Вперёд →</button>
+      </div>
+    </section>
+
+    <!-- ===== MATCH MODE (pairs game) ===== -->
+    <section id="view-match" class="view hidden">
+      <!-- match intro -->
+      <div id="match-intro" class="panel center">
+        <h2>Режим «Пары»</h2>
+        <p>Соедини английский термин с русским переводом. Нажми на карточку слева, затем на её пару справа. Верно — пара исчезает, неверно — подсветится красным.</p>
+        <p>Выбери тему и собери все пары на скорость.</p>
+        <div class="match-setup">
+          <label for="match-unit">Тема:</label>
+          <select id="match-unit"></select>
+        </div>
+        <p class="recall-mastery" id="match-best"></p>
+        <button id="match-start" class="btn primary" type="button">Начать</button>
+      </div>
+
+      <!-- match running -->
+      <div id="match-run" class="panel hidden">
+        <div class="exam-top">
+          <span class="pill" id="match-progress"></span>
+          <span class="pill ghost" id="match-stats"></span>
+        </div>
+        <div class="match-grid" id="match-grid"></div>
+      </div>
+
+      <!-- match done -->
+      <div id="match-done" class="panel center hidden">
+        <h2>Все пары собраны! 🎉</h2>
+        <p class="score" id="match-result"></p>
+        <p id="match-verdict" class="verdict"></p>
+        <button id="match-again" class="btn primary" type="button">Ещё раз</button>
+      </div>
+    </section>
+
+    <!-- ===== DEFINITION QUIZ MODE ===== -->
+    <section id="view-defs" class="view hidden">
+      <!-- defs intro -->
+      <div id="defs-intro" class="panel center">
+        <h2>Режим «Определения»</h2>
+        <p>Читаешь определение на английском — выбираешь правильный термин из четырёх. Мгновенная проверка и серия правильных ответов подряд.</p>
+        <button id="defs-start" class="btn primary" type="button">Начать</button>
+      </div>
+
+      <!-- defs running -->
+      <div id="defs-run" class="panel hidden">
+        <div class="exam-top">
+          <span class="pill" id="defs-progress"></span>
+          <span class="pill ghost" id="defs-streak"></span>
+        </div>
+        <p class="q-text" id="defs-question"></p>
+        <div class="options" id="defs-options"></div>
+        <div class="explain hidden" id="defs-explain"></div>
+        <div class="test-controls">
+          <button id="defs-next" class="btn primary hidden" type="button">Дальше →</button>
+        </div>
+      </div>
+
+      <!-- defs result -->
+      <div id="defs-result" class="panel center hidden">
+        <h2>Результат</h2>
+        <p class="score" id="defs-score"></p>
+        <p id="defs-verdict" class="verdict"></p>
+        <button id="defs-again" class="btn primary" type="button">Пройти заново</button>
       </div>
     </section>
 

@@ -28,12 +28,20 @@ function saveLearned(set) {
 let learned = loadLearned();
 
 // ---------- mode switching ----------
-const VIEWS = { exam: "#view-exam", cards: "#view-cards", test: "#view-test" };
+const VIEWS = {
+  exam: "#view-exam",
+  cards: "#view-cards",
+  match: "#view-match",
+  defs: "#view-defs",
+  test: "#view-test",
+};
 
 function switchMode(mode) {
   $$(".mode-btn").forEach((b) => b.classList.toggle("is-active", b.dataset.mode === mode));
   Object.entries(VIEWS).forEach(([m, sel]) => $(sel).classList.toggle("hidden", m !== mode));
   if (mode === "cards") renderCard();
+  if (mode === "match") showMatchIntro();
+  if (mode === "defs") showDefsIntro();
 }
 
 $$(".mode-btn").forEach((btn) => btn.addEventListener("click", () => switchMode(btn.dataset.mode)));
@@ -259,6 +267,265 @@ $("#test-start").addEventListener("click", startTest);
 $("#test-again").addEventListener("click", startTest);
 $("#test-next").addEventListener("click", nextTest);
 
+// =====================================================
+//  MATCH MODE — pair English term with Russian translation
+// =====================================================
+const MATCH_PAIRS = 8; // pairs per round
+const MATCH_BEST_KEY = "km3_match_best_v1";
+
+let matchSelected = null; // { el, key, side }
+let matchRemaining = 0;
+let matchMoves = 0;
+let matchTimer = null;
+let matchSeconds = 0;
+let matchLock = false;
+
+function unitLabel(u) {
+  return `Unit ${u}`;
+}
+
+function buildMatchUnitFilter() {
+  const units = Array.from(new Set(TERMS.map((t) => t.unit))).sort((a, b) => a - b);
+  const sel = $("#match-unit");
+  sel.innerHTML =
+    `<option value="all">Все темы</option>` +
+    units.map((u) => `<option value="${u}">${unitLabel(u)}</option>`).join("");
+}
+
+function loadMatchBest() {
+  try {
+    return JSON.parse(localStorage.getItem(MATCH_BEST_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+function saveMatchBest(map) {
+  localStorage.setItem(MATCH_BEST_KEY, JSON.stringify(map));
+}
+
+function showMatchIntro() {
+  $("#match-intro").classList.remove("hidden");
+  $("#match-run").classList.add("hidden");
+  $("#match-done").classList.add("hidden");
+  const best = loadMatchBest()[$("#match-unit").value];
+  $("#match-best").textContent = best ? `Лучшее время: ${formatTime(best)}` : "";
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function startMatch() {
+  const filter = $("#match-unit").value;
+  const pool = filter === "all" ? TERMS.slice() : TERMS.filter((t) => String(t.unit) === filter);
+  const chosen = shuffle(pool).slice(0, Math.min(MATCH_PAIRS, pool.length));
+
+  matchRemaining = chosen.length;
+  matchMoves = 0;
+  matchSeconds = 0;
+  matchSelected = null;
+  matchLock = false;
+
+  $("#match-intro").classList.add("hidden");
+  $("#match-done").classList.add("hidden");
+  $("#match-run").classList.remove("hidden");
+
+  const leftCards = chosen.map((t, i) => ({ key: i, side: "en", text: t.en }));
+  const rightCards = chosen.map((t, i) => ({ key: i, side: "ru", text: t.ru }));
+  const cells = shuffle(leftCards.concat(rightCards));
+
+  const grid = $("#match-grid");
+  grid.innerHTML = "";
+  cells.forEach((c) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `match-cell ${c.side}`;
+    b.textContent = c.text;
+    b.dataset.key = c.key;
+    b.dataset.side = c.side;
+    b.addEventListener("click", () => onMatchClick(b));
+    grid.appendChild(b);
+  });
+
+  updateMatchStatus();
+  clearInterval(matchTimer);
+  matchTimer = setInterval(() => {
+    matchSeconds++;
+    updateMatchStatus();
+  }, 1000);
+}
+
+function updateMatchStatus() {
+  $("#match-progress").textContent = `Осталось пар: ${matchRemaining}`;
+  $("#match-stats").textContent = `⏱ ${formatTime(matchSeconds)} · ходов: ${matchMoves}`;
+}
+
+function onMatchClick(el) {
+  if (matchLock) return;
+  if (el.classList.contains("done") || el === matchSelected?.el) return;
+
+  if (!matchSelected) {
+    matchSelected = { el, key: el.dataset.key, side: el.dataset.side };
+    el.classList.add("selected");
+    return;
+  }
+
+  // second pick
+  matchMoves++;
+  const first = matchSelected;
+  const sameKey = first.key === el.dataset.key;
+  const diffSide = first.side !== el.dataset.side;
+
+  if (sameKey && diffSide) {
+    el.classList.add("done");
+    first.el.classList.remove("selected");
+    first.el.classList.add("done");
+    matchSelected = null;
+    matchRemaining--;
+    updateMatchStatus();
+    if (matchRemaining === 0) finishMatch();
+  } else {
+    matchLock = true;
+    el.classList.add("wrong");
+    first.el.classList.add("wrong");
+    setTimeout(() => {
+      el.classList.remove("wrong");
+      first.el.classList.remove("wrong", "selected");
+      matchSelected = null;
+      matchLock = false;
+    }, 650);
+    updateMatchStatus();
+  }
+}
+
+function finishMatch() {
+  clearInterval(matchTimer);
+  const filter = $("#match-unit").value;
+  const best = loadMatchBest();
+  const prev = best[filter];
+  const isRecord = !prev || matchSeconds < prev;
+  if (isRecord) {
+    best[filter] = matchSeconds;
+    saveMatchBest(best);
+  }
+  $("#match-run").classList.add("hidden");
+  $("#match-done").classList.remove("hidden");
+  $("#match-result").textContent = `${formatTime(matchSeconds)} · ${matchMoves} ходов`;
+  $("#match-verdict").textContent = isRecord ? "Новый рекорд! 🏆" : `Рекорд: ${formatTime(best[filter])}`;
+}
+
+$("#match-start").addEventListener("click", startMatch);
+$("#match-again").addEventListener("click", startMatch);
+$("#match-unit").addEventListener("change", showMatchIntro);
+
+// =====================================================
+//  DEFINITION QUIZ — read English definition, pick the term
+// =====================================================
+const DEFS_SIZE = 12;
+let defsSet = [];
+let defsIdx = 0;
+let defsScore = 0;
+let defsStreak = 0;
+let defsBestStreak = 0;
+let defsAnswered = false;
+
+function showDefsIntro() {
+  $("#defs-intro").classList.remove("hidden");
+  $("#defs-run").classList.add("hidden");
+  $("#defs-result").classList.add("hidden");
+}
+
+function startDefs() {
+  defsSet = shuffle(DEFS).slice(0, DEFS_SIZE);
+  defsIdx = 0;
+  defsScore = 0;
+  defsStreak = 0;
+  defsBestStreak = 0;
+  $("#defs-intro").classList.add("hidden");
+  $("#defs-result").classList.add("hidden");
+  $("#defs-run").classList.remove("hidden");
+  renderDefsQuestion();
+}
+
+function renderDefsQuestion() {
+  defsAnswered = false;
+  const item = defsSet[defsIdx];
+  $("#defs-progress").textContent = `Вопрос ${defsIdx + 1} / ${defsSet.length} · Счёт: ${defsScore}`;
+  $("#defs-streak").textContent = `🔥 Серия: ${defsStreak}`;
+  $("#defs-question").textContent = item.def;
+  $("#defs-explain").classList.add("hidden");
+  $("#defs-next").classList.add("hidden");
+
+  const distractors = shuffle(DEFS.filter((d) => d.term !== item.term)).slice(0, 3).map((d) => d.term);
+  const options = shuffle([item.term, ...distractors]);
+
+  const box = $("#defs-options");
+  box.innerHTML = "";
+  options.forEach((term) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "option";
+    b.textContent = term;
+    b.addEventListener("click", () => answerDefs(term, b));
+    box.appendChild(b);
+  });
+}
+
+function answerDefs(choice, btn) {
+  if (defsAnswered) return;
+  defsAnswered = true;
+  const item = defsSet[defsIdx];
+  const correct = choice === item.term;
+  $$("#defs-options .option").forEach((b) => {
+    b.disabled = true;
+    if (b.textContent === item.term) b.classList.add("correct");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  if (correct) {
+    defsScore++;
+    defsStreak++;
+    defsBestStreak = Math.max(defsBestStreak, defsStreak);
+  } else {
+    defsStreak = 0;
+  }
+  const exp = $("#defs-explain");
+  exp.innerHTML = correct
+    ? "✔ Верно."
+    : `✘ Неверно. Правильный термин: <b>${escapeHtml(item.term)}</b>.`;
+  exp.classList.remove("hidden");
+  $("#defs-progress").textContent = `Вопрос ${defsIdx + 1} / ${defsSet.length} · Счёт: ${defsScore}`;
+  $("#defs-streak").textContent = `🔥 Серия: ${defsStreak}`;
+  $("#defs-next").classList.remove("hidden");
+  $("#defs-next").textContent = defsIdx + 1 >= defsSet.length ? "Показать результат" : "Дальше →";
+}
+
+function nextDefs() {
+  defsIdx++;
+  if (defsIdx >= defsSet.length) finishDefs();
+  else renderDefsQuestion();
+}
+
+function finishDefs() {
+  $("#defs-run").classList.add("hidden");
+  $("#defs-result").classList.remove("hidden");
+  const total = defsSet.length;
+  const pct = Math.round((defsScore / total) * 100);
+  $("#defs-score").textContent = `${defsScore} / ${total} (${pct}%)`;
+  let verdict = `Лучшая серия: ${defsBestStreak}. `;
+  if (pct >= 90) verdict += "Термины знаешь отлично! 🎉";
+  else if (pct >= 70) verdict += "Хорошо, но пара терминов хромает.";
+  else if (pct >= 50) verdict += "Средне — повтори глоссарий.";
+  else verdict += "Нужно подучить определения.";
+  $("#defs-verdict").textContent = verdict;
+}
+
+$("#defs-start").addEventListener("click", startDefs);
+$("#defs-again").addEventListener("click", startDefs);
+$("#defs-next").addEventListener("click", nextDefs);
+
 // ---------- init ----------
 buildUnitFilter();
+buildMatchUnitFilter();
 renderCard();
